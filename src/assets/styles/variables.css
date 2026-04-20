@@ -1,0 +1,200 @@
+:root{
+  /* BACKGROUND */
+  --color-background: #EFEFEF;
+  --color-background-modal: #FFFFFF;
+  --color-background-popup: #FFFFFF;
+  --color-background-card: #FFFFFF;
+  --color-background-accent-light: #F6F6F6;
+  --color-background-overlay: rgba(0, 0, 0, 0.5);
+
+  /* TEXT */
+  --color-text-primary: #3F3F3F;
+  --color-text-white: #FFFFFF;
+  --color-text-light-grey: #838383;
+  --color-text-accent: #5762D5;
+  --color-text-accent-hover: #525CDD;
+  --color-text-warning: #ffaa4b;
+  --color-text-danger: #FF5757;
+  --color-text-danger-hover: #EA4A4A;
+
+  /* ICON */
+  --color-icon-primary: #3F3F3F;
+  --color-icon-white: #FFFFFF;
+
+  /* STATUS */
+  --color-status-pending: #ACB7DA;
+  --color-status-progress: #ffaa4b;
+  --color-status-done: #34A853;
+  --color-status-done-accent: #5762D5;
+
+  /* BORDER */
+  --color-border: #1E1F22;
+  --color-border-light-grey: #d9d9d9;
+  --color-border-accent: #5762D5;
+
+  /* BUTTON */
+  --color-button-primary: #5762D5;
+  --color-button-primary-hover: #525CDD;
+
+  --color-button-secondary: #8C9BC9;
+  --color-button-secondary-hover: #586795;
+
+  --color-button-tetriary: #E3E3E3;
+  --color-button-tetriary-hover: #d9d9d9;
+  --color-button-tetriary-accent-hover: #525CDD;
+  --color-button-tetriary-danger-hover: #EA4A4A;
+
+  --color-button-danger: #FF5757;
+  --color-button-danger-hover: #EA4A4A;
+
+  --color-button-ghost: transparent;
+  --color-button-ghost-hover: #f6f6f6;
+  --color-button-ghost-active: #EFEAEA;
+
+  /* SCROLLBAR */
+  --color-scrollbar-track: #F1F1F1;
+  --color-scrollbar-thumb: #C7CADC;
+  --color-scrollbar-thumb-hover: #5762D5;
+
+  /* CIRCULAR PROGRESS */
+  --color-circular-progress-background: #E0E0E0;
+  --color-circular-progress-fill: #5762D5;
+  --color-circular-progress-text: #3F3F3F;
+
+  /* BOX SHADOW */
+  --box-shadow-sm-primary: 2px 2px 0 #3F3F3F;
+  --box-shadow-md-primary: 4px 4px 0 #3F3F3F;
+}
+
+:root.light {
+  /* BACKGROUND */
+  --color-background: #EFEFEF;
+  --color-background-modal: #FFFFFF;
+  --color-background-popup: #FFFFFF;
+  --color-background-accent-light: #F6F6F6;
+  --color-background-overlay: rgba(0, 0, 0, 0.5);
+
+  /* TEXT */
+  --color-text-primary: #3F3F3F;
+  --color-text-white: #FFFFFF;
+  --color-text-light-grey: #838383;
+  --color-text-accent: #5762D5;
+  --color-text-accent-hover: #525CDD;
+  --color-text-warning: #ffaa4b;
+  --color-text-danger: #FF5757;
+  --color-text-danger-hover: #EA4A4A;
+
+  /* ICON */
+  --color-icon-primary: #3F3F3F;
+  --color-icon-white: #FFFFFF;
+
+  /* STATUS */
+  --color-status-pending: #ACB7DA;
+  --color-status-progress: #ffaa4b;
+  --color-status-done: #34A853;
+  --color-status-done-accent: #5762D5;
+
+  /* BORDER */
+  --color-border: #1E1F22;
+  --color-border-light-grey: #d9d9d9;
+  --color-border-accent: #5762D5;
+
+  /* BUTTON */
+  --color-button-primary: #5762D5;
+  --color-button-primary-hover: #525CDD;
+
+  --color-button-secondary: #8C9BC9;
+  --color-button-secondary-hover: #586795;
+
+  --color-button-tetriary: #E3E3E3;
+  --color-button-tetriary-hover: #d9d9d9;
+
+  --color-button-danger: #FF5757;
+  --color-button-danger-hover: #EA4A4A;
+
+  --color-button-ghost: transparent;
+  --color-button-ghost-hover: #f6f6f6;
+  --color-button-ghost-active: #EFEAEA;
+
+  /* SCROLLBAR */
+  --color-scrollbar-track: #F1F1F1;
+  --color-scrollbar-thumb: #C7CADC;
+  --color-scrollbar-thumb-hover: #5762D5;
+
+  /* CIRCULAR PROGRESS */
+  --color-circular-progress-background: #E0E0E0;
+  --color-circular-progress-fill: #5762D5;
+  --color-circular-progress-text: #3F3F3F;
+
+  /* BOX SHADOW */
+  --box-shadow-sm-primary: 2px 2px 0 #3F3F3F;
+  --box-shadow-md-primary: 4px 4px 0 #3F3F3F;
+}
+
+:root.dark {
+  /* BACKGROUND - на основе ваших цветов */
+  --color-background: #1E1F22;
+  --color-background-modal: #252629;
+  --color-background-popup: #252629;
+  --color-background-card: #252629;
+  --color-background-accent-light: #2C2D32;
+  --color-background-overlay: rgba(0, 0, 0, 0.7);
+
+  /* TEXT */
+  --color-text-primary: #D1D3DB;
+  --color-text-white: #FFFFFF;
+  --color-text-light-grey: #9E9E9E;
+  --color-text-accent: #717df1;
+  --color-text-accent-hover: #5e69ed;
+  --color-text-warning: #ffaa4b;
+  --color-text-danger: #FF5757;
+  --color-text-danger-hover: #FF6B6B;
+
+  /* ICON */
+  --color-icon-primary: #D1D3DB;
+  --color-icon-white: #FFFFFF;
+
+  /* STATUS */
+  --color-status-pending: #757680;
+  --color-status-progress: #ffaa4b;
+  --color-status-done: #34A853;
+  --color-status-done-accent: #717df1;
+
+  /* BORDER */
+  --color-border: #34353a;
+  --color-border-light-grey: #404147;
+  --color-border-accent: #5762D5;
+
+  /* BUTTON */
+  --color-button-primary: #717df1;
+  --color-button-primary-hover: #5e69ed;
+
+  --color-button-secondary: #3D3E45;
+  --color-button-secondary-hover: #4A4B54;
+
+  --color-button-tetriary: #35363B;
+  --color-button-tetriary-hover: #45464D;
+  --color-button-tetriary-accent-hover: #5e69ed;
+  --color-button-tetriary-danger-hover: #FF5757;
+
+  --color-button-danger: #FF5757;
+  --color-button-danger-hover: #EA4A4A;
+
+  --color-button-ghost: transparent;
+  --color-button-ghost-hover: #2C2D32;
+  --color-button-ghost-active: #35363B;
+
+  /* SCROLLBAR */
+  --color-scrollbar-track: #1E1F22;
+  --color-scrollbar-thumb: #2C2D32;
+  --color-scrollbar-thumb-hover: #717df1;
+
+  /* CIRCULAR PROGRESS */
+  --color-circular-progress-background: #2C2D32;
+  --color-circular-progress-fill: #717df1;
+  --color-circular-progress-text: #E6E6E6;
+
+  /* BOX SHADOW */
+  --box-shadow-sm-primary: 2px 2px 0 #34353a;
+  --box-shadow-md-primary: 4px 4px 0 #3c3d43;
+}

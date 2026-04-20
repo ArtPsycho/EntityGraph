@@ -1,0 +1,267 @@
+{
+  "locale": "en-US",
+  "currentLanguage": "English",
+  "entity": {
+    "entityList": {
+      "noEntities": "No entities yet. Create your first entity!",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "exportButtonText": "Export"
+    }
+  },
+  "homePage": {
+    "alert": {
+      "noDataImport": "No data to import"
+    },
+    "content": {
+      "sort": {
+        "sortButtonLabel": "Sort by",
+        "groupCreatedLabel": "Date Created",
+        "optionCreatedAtDesc": "Created: Newest first",
+        "optionCreatedAtAsc": "Created: Oldest first",
+        "groupUpdatedLabel": "Date Updated",
+        "optionUpdatedAtDesc": "Updated: Newest first",
+        "optionUpdatedAtAsc": "Updated: Oldest first",
+        "groupNameLabel": "Name",
+        "optionNameAsc": "Name: A to Z",
+        "optionNameDesc": "Name: Z to A"
+      },
+      "create": {
+        "importButtonText": "Import",
+        "createButtonText": "+ New Entity"
+      }
+    },
+    "popup": {
+      "deleteEntity": {
+        "itemType": "entity",
+        "title": "Delete",
+        "message": "Are you sure you want to delete",
+        "warning": "This action cannot be undone.",
+        "cancelButtonText": "Cancel",
+        "submitButtonText": "Delete"
+      },
+      "createEntity": {
+        "title": "New entity",
+        "inputNamePlaceholder": "Name",
+        "cancelButtonText": "Cancel",
+        "submitButtonText": "Create"
+      },
+      "info": {
+        "title": "About app",
+        "paragraphOne": "This application was created for the convenient graphical display of a learning stage plan. I wanted to implement the ability to build several major learning branches within a single topic, each of which can contain different stages and substages. Also, the ability to view your plan as a dependency tree — for a visual understanding of the direction of movement in learning.",
+        "paragraphTwo": "I wanted to create an application without reliance on network file storage. Therefore, data is stored locally, and using the application on different devices requires export/import. This decision was made for personal reasons. However, anyone can always add their own implementation of a network database.",
+        "paragraphThree": "Use it, experiment, improve."
+      },
+      "tutorial": {
+        "videoNotSupported": "Your browser does not support video",
+        "backButtonText": "Back",
+        "skipTutorialButtonText": "Skip tutorial",
+        "nextButtonText": "Next",
+        "finishButtonText": "Finish",
+        "welcome": {
+          "title": "Welcome!",
+          "message": "Welcome to Entity Graph! This quick guide will help you get started and work efficiently with the application."
+        },
+        "homePage": {
+          "title": "Home Page",
+          "message": "Here you'll find all your entities. You can create new ones, as well as export or import data from files — all management in one place."
+        },
+        "createEntity": {
+          "title": "Creating an Entity",
+          "message": "Click the 'New Entity' button on the home page to add an entity. Just give it a name — and you're ready to start."
+        },
+        "entityPage": {
+          "title": "Entity Page",
+          "message": "This is your main workspace. Here you can create branches, items, and sub-items, edit them, change statuses, and track your progress — everything you need to manage your project."
+        },
+        "createBranch": {
+          "title": "Creating a Branch",
+          "message": "To start structuring information, click the 'New Branch' button on the entity page."
+        },
+        "branch": {
+          "title": "Working with a Branch",
+          "message": "Inside a branch, you can create, view, and edit items and sub-items. On the right, you'll see a graphical diagram of items and their statuses. Hover over an item — and you'll see its sub-items and their status."
+        },
+        "progress": {
+          "title": "Tasks & Progress",
+          "message": "On the left side of the entity page, you can always see your upcoming tasks and overall progress across branches. This makes planning easier and helps you stay on top of everything."
+        },
+        "start": {
+          "title": "The Future of the App",
+          "message": "Entity Graph will keep getting better with every update. All new versions and features are always available on the project page. Wishing you inspiration, exciting challenges, and great results!"
+        }
+      }
+    }
+  },
+  "entityPage": {
+    "content": {
+      "error": {
+        "notFound": "File not found",
+        "fileCorrupted": "File is corrupted or has invalid JSON format",
+        "loadingError": "Error loading entity data",
+        "title": "Error"
+      },
+      "loading": {
+        "message": "Loading..."
+      },
+      "notFound": {
+        "title": "File Not Found",
+        "message": "The requested entity file could not be found.",
+        "homeButtonText": "Go to Home"
+      },
+      "fileCorrupted": {
+        "title": "File Corrupted",
+        "message": "The entity file is corrupted or contains invalid data.",
+        "fileNameLabel": "File",
+        "homeButtonText": "Go to Home"
+      },
+      "noData": {
+        "message": "No data"
+      },
+      "status": {
+        "pending": "Pending",
+        "inProgress": "In Progress",
+        "done": "Done"
+      },
+      "taskDate": {
+        "overdue": "Overdue by",
+        "overdueDays": "d",
+        "today": "Today",
+        "tomorrow": "Tomorrow"
+      },
+      "infoBar": {
+        "goBackButtonText": "Go back",
+        "editEntity": {
+          "cancelButtonTitle": "Cancel edit",
+          "submitButtonTitle": "Confirm edit",
+          "inputNameLabel": "Name",
+          "inputNamePlaceholder": "Enter entity name"
+        },
+        "entityHeader": {
+          "createdLabel": "Created",
+          "updatedLabel": "Updated",
+          "branchesLabel": "Branches"
+        },
+        "tasks": {
+          "title": "Nearest Tasks",
+          "noTasks": "No active tasks with deadlines"
+        },
+        "progress": {
+          "title": "Progress"
+        }
+      },
+      "main": {
+        "interaction": {
+          "newBranchButtonText": "+ New Branch",
+          "deleteEntityButtonText": "Delete entity",
+          "exportEntityButtonText": "Export entity"
+        },
+        "branchContent": {
+          "noBranches": "No branches yet",
+          "editBranch": {
+            "inputNamePlaceholder": "Enter branch name"
+          },
+          "branchHeader": {
+            "branchName": "Unnamed branch",
+            "branchPointsLabel": "Points",
+            "editBranchButtonTitle": "Edit branch",
+            "deleteBranchButtonTitle": "Delete branch"
+          }
+        },
+        "pointContent": {
+          "createPointButtonText": "+ New Point",
+          "noPoints": {
+            "noPointsMessage": "No points yet",
+            "addPointButtonText": "+ New Point"
+          },
+          "editPoint": {
+            "deletePointButtonTitle": "Delete point",
+            "cancelButtonTitle": "Cancel edit",
+            "submitButtonTitle": "Confirm edit",
+            "inputNameLabel": "Name",
+            "inputNamePlaceholder": "Enter point name",
+            "inputDescriptionLabel": "Description",
+            "inputDescriptionPlaceholder": "Enter point description",
+            "inputDoUntilLabel": "Do until"
+          },
+          "info": {
+            "createdLabel": "Created",
+            "doUntilLabel": "To Do Until",
+              "noLimitLabel": "No time limit",
+            "subbranchesLabel": "Subbranches"
+          }
+        },
+        "subbranchContent": {
+          "viewLessButtonText": "View less",
+          "viewMoreButtonText": "View more",
+          "createSubbranchButtonText": "+ New Subbranch",
+          "noSubbranches": {
+            "noSubbranchesMessage": "No subbranches yet",
+            "createSubbranchButtonText": "+ New Subbranch"
+          },
+          "editSubbranch": {
+            "deleteSubbranchButtonTitle": "Delete subbranch",
+            "cancelButtonTitle": "Cancel edit",
+            "submitButtonTitle": "Confirm edit",
+            "inputNameLabel": "Name",
+            "inputNamePlaceholder": "Enter subbranch name",
+            "inputDescriptionLabel": "Description",
+            "inputDescriptionPlaceholder": "Enter subbranch description",
+            "inputDoUntilLabel": "Do until"
+          },
+          "info": {
+            "createdLabel": "Created",
+            "doUntilLabel": "To Do Until",
+            "noLimitLabel": "No time limit"
+          }
+        }
+      }
+    },
+    "popup": {
+      "status": {
+        "pending": "Pending",
+        "inProgress": "In Progress",
+        "done": "Done"
+      },
+      "createBranch": {
+        "title": "New branch",
+        "inputNamePlaceholder": "Branch name",
+        "cancelButtonText": "Cancel",
+        "submitButtonText": "Create",
+        "loadingText": "Creating..."
+      },
+      "deleteEntity": {
+        "itemType": "entity",
+        "title": "Delete",
+        "message": "Are you sure you want to delete",
+        "warning": "This action cannot be undone.",
+        "cancelButtonText": "Cancel",
+        "submitButtonText": "Delete"
+      },
+      "deleteBranch": {
+        "itemType": "branch",
+        "title": "Delete",
+        "message": "Are you sure you want to delete",
+        "warning": "This action cannot be undone.",
+        "cancelButtonText": "Cancel",
+        "submitButtonText": "Delete"
+      },
+      "deletePoint": {
+        "itemType": "point",
+        "title": "Delete",
+        "message": "Are you sure you want to delete",
+        "warning": "This action cannot be undone.",
+        "cancelButtonText": "Cancel",
+        "submitButtonText": "Delete"
+      },
+      "deleteSubbranch": {
+        "itemType": "subbranch",
+        "title": "Delete",
+        "message": "Are you sure you want to delete",
+        "warning": "This action cannot be undone.",
+        "cancelButtonText": "Cancel",
+        "submitButtonText": "Delete"
+      }
+    }
+  }
+}

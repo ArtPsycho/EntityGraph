@@ -1,0 +1,267 @@
+{
+  "locale": "ru-RU",
+  "currentLanguage": "Русский",
+  "entity": {
+    "entityList": {
+      "noEntities": "Пока нет сущностей. Создайте свою первую сущность!",
+      "createdLabel": "Создано",
+      "updatedLabel": "Обновлено",
+      "exportButtonText": "Экспорт"
+    }
+  },
+  "homePage": {
+    "alert": {
+      "noDataImport": "Нет данных для импорта"
+    },
+    "content": {
+      "sort": {
+        "sortButtonLabel": "Сортировать по",
+        "groupCreatedLabel": "Дате создания",
+        "optionCreatedAtDesc": "Дате создания: сначала новые",
+        "optionCreatedAtAsc": "Дате создания: сначала старые",
+        "groupUpdatedLabel": "Дате обновления",
+        "optionUpdatedAtDesc": "Дате обновления: сначала новые",
+        "optionUpdatedAtAsc": "Дате обновления: сначала старые",
+        "groupNameLabel": "Названию",
+        "optionNameAsc": "Названию: от А до Я",
+        "optionNameDesc": "Названию: от Я до А"
+      },
+      "create": {
+        "importButtonText": "Импорт",
+        "createButtonText": "+ Новая Сущность"
+      }
+    },
+    "popup": {
+      "deleteEntity": {
+        "itemType": "сущность",
+        "title": "Удалить",
+        "message": "Вы уверены, что хотите удалить",
+        "warning": "Это действие невозможно будет отменить.",
+        "cancelButtonText": "Отменить",
+        "submitButtonText": "Удалить"
+      },
+      "createEntity": {
+        "title": "Новая сущность",
+        "inputNamePlaceholder": "Имя",
+        "cancelButtonText": "Отменить",
+        "submitButtonText": "Создать"
+      },
+      "info": {
+        "title": "О приложении",
+        "paragraphOne": "Это приложение было создано для удобного графического отображения плана этапов обучения. Я хотел реализовать возможность построения нескольких крупных ветвей обучения в одной теме, каждая из которых может содержать разные этапы и подэтапы. А также — возможность видеть свой план в виде дерева зависимостей для визуального понимания направления движения в обучении.",
+        "paragraphTwo": "Мне хотелось создать приложение без привязки к сетевому хранению файлов. Поэтому данные хранятся локально, и для использования на разных устройствах требуется экспорт/импорт. Это решение принято по личным соображениям. Впрочем, любой желающий всегда может добавить собственную реализацию сетевой базы данных.",
+        "paragraphThree": "Пользуйтесь, экспериментируйте, улучшайте."
+      },
+      "tutorial": {
+        "videoNotSupported": "Ваш браузер не поддерживает видео",
+        "backButtonText": "Назад",
+        "skipTutorialButtonText": "Пропустить обучение",
+        "nextButtonText": "Далее",
+        "finishButtonText": "Завершить",
+        "welcome": {
+          "title": "Добро пожаловать!",
+          "message": "Добро пожаловать в Entity Graph! Это краткое руководство поможет вам быстро освоиться и начать эффективно работать с приложением."
+        },
+        "homePage": {
+          "title": "Домашняя страница",
+          "message": "Здесь собраны все ваши сущности. Вы можете создавать новые, а также экспортировать или импортировать данные из файлов — всё управление в одном месте."
+        },
+        "createEntity": {
+          "title": "Создание сущности",
+          "message": "Нажмите кнопку «Новая сущность» на домашней странице, чтобы добавить сущность. Просто укажите название — и можно начинать работу."
+        },
+        "entityPage": {
+          "title": "Страница сущности",
+          "message": "Это ваше основное рабочее пространство. Здесь вы создаёте ветви, пункты и подветви, редактируете их, меняете статусы и отслеживаете прогресс — всё, что нужно для управления проектом."
+        },
+        "createBranch": {
+          "title": "Создание ветви",
+          "message": "Чтобы начать структурировать информацию, нажмите кнопку «Новая ветвь» на странице сущности."
+        },
+        "branch": {
+          "title": "Работа с ветвью",
+          "message": "Внутри ветви вы можете создавать пункты и подветви, а также редактировать их. Справа отображается графическая схема пунктов и их статусов. Наведите курсор на пункт — и вы увидите его подветви и их состояние."
+        },
+        "progress": {
+          "title": "Задачи и прогресс",
+          "message": "Слева на странице сущности вы всегда видите свои ближайшие задачи и общий прогресс по ветвям. Так легче планировать и ничего не упустить."
+        },
+        "start": {
+          "title": "Будущее приложения",
+          "message": "Entity Graph будет становиться лучше с каждым обновлением. Все новые версии и функции всегда доступны на странице проекта. Желаем вам вдохновения, интересных задач и отличных результатов!"
+        }
+      }
+    }
+  },
+  "entityPage": {
+    "content": {
+      "error": {
+        "notFound": "Файл не найден",
+        "fileCorrupted": "Файл поврежден или имеет недопустимый формат JSON",
+        "loadingError": "Ошибка при загрузке данных сущности",
+        "title": "Ошибка"
+      },
+      "loading": {
+        "message": "Загрузка..."
+      },
+      "notFound": {
+        "title": "Файл не найден",
+        "message": "Запрошенный файл сущности не найден.",
+        "homeButtonText": "Вернуться домой"
+      },
+      "fileCorrupted": {
+        "title": "Файл поврежден",
+        "message": "Файл сущности поврежден или содержит недопустимые данные.",
+        "fileNameLabel": "Файл",
+        "homeButtonText": "Вернуться домой"
+      },
+      "noData": {
+        "message": "Не данных"
+      },
+      "status": {
+        "pending": "В ожидании",
+        "inProgress": "В процессе",
+        "done": "Завершено"
+      },
+      "taskDate": {
+        "overdue": "Просрочено на",
+        "overdueDays": "д",
+        "today": "Сегодня",
+        "tomorrow": "Завтра"
+      },
+      "infoBar": {
+        "goBackButtonText": "Вернуться назад",
+        "editEntity": {
+          "cancelButtonTitle": "Отменить редактирование",
+          "submitButtonTitle": "Подтвердить редактирование",
+          "inputNameLabel": "Имя",
+          "inputNamePlaceholder": "Введите имя сущности"
+        },
+        "entityHeader": {
+          "createdLabel": "Создано",
+          "updatedLabel": "Обновлено",
+          "branchesLabel": "Ветви"
+        },
+        "tasks": {
+          "title": "Ближайшие задачи",
+          "noTasks": "Нет активных задач с установленными сроками"
+        },
+        "progress": {
+          "title": "Прогресс"
+        }
+      },
+      "main": {
+        "interaction": {
+          "newBranchButtonText": "+ Новая ветвь",
+          "deleteEntityButtonText": "Удалить сущность",
+          "exportEntityButtonText": "Экспортировать сущность"
+        },
+        "branchContent": {
+          "noBranches": "Ветвей пока нет",
+          "editBranch": {
+            "inputNamePlaceholder": "Введите имя ветви"
+          },
+          "branchHeader": {
+            "branchName": "Безымянная ветвь",
+            "branchPointsLabel": "Пункты",
+            "editBranchButtonTitle": "Редактировать ветвь",
+            "deleteBranchButtonTitle": "Удалить ветвь"
+          }
+        },
+        "pointContent": {
+          "createPointButtonText": "+ Новый пункт",
+          "noPoints": {
+            "noPointsMessage": "Пунктов пока нет",
+            "addPointButtonText": "+ Новый пункт"
+          },
+          "editPoint": {
+            "deletePointButtonTitle": "Удалить пункт",
+            "cancelButtonTitle": "Отменить редактирование",
+            "submitButtonTitle": "Подтвердить редактирование",
+            "inputNameLabel": "Имя",
+            "inputNamePlaceholder": "Введите имя пункта",
+            "inputDescriptionLabel": "Описание",
+            "inputDescriptionPlaceholder": "Введите описание пункта",
+            "inputDoUntilLabel": "Выполнить до"
+          },
+          "info": {
+            "createdLabel": "Создано",
+            "doUntilLabel": "Выполнить до",
+            "noLimitLabel": "Без ограничений по времени",
+            "subbranchesLabel": "Подветви"
+          }
+        },
+        "subbranchContent": {
+          "viewLessButtonText": "Показать меньше",
+          "viewMoreButtonText": "Показать больше",
+          "createSubbranchButtonText": "+ Новая подветвь",
+          "noSubbranches": {
+            "noSubbranchesMessage": "Подветвей пока нет",
+            "createSubbranchButtonText": "+ Новая подветвь"
+          },
+          "editSubbranch": {
+            "deleteSubbranchButtonTitle": "Удалить подветвь",
+            "cancelButtonTitle": "Отменить редактирование",
+            "submitButtonTitle": "Подтвердить редактирование",
+            "inputNameLabel": "Имя",
+            "inputNamePlaceholder": "Введите имя подветви",
+            "inputDescriptionLabel": "Описание",
+            "inputDescriptionPlaceholder": "Введите описание подветви",
+            "inputDoUntilLabel": "Выполнить до"
+          },
+          "info": {
+            "createdLabel": "Создано",
+            "doUntilLabel": "Выполнить до",
+            "noLimitLabel": "Без ограничений по времени"
+          }
+        }
+      }
+    },
+    "popup": {
+      "status": {
+        "pending": "В ожидании",
+        "inProgress": "В процессе",
+        "done": "Завершено"
+      },
+      "createBranch": {
+        "title": "Новая ветвь",
+        "inputNamePlaceholder": "Имя ветви",
+        "cancelButtonText": "Отменить",
+        "submitButtonText": "Создать",
+        "loadingText": "Создается..."
+      },
+      "deleteEntity": {
+        "itemType": "сущность",
+        "title": "Удалить",
+        "message": "Вы уверены, что хотите удалить",
+        "warning": "Это действие невозможно будет отменить.",
+        "cancelButtonText": "Отменить",
+        "submitButtonText": "Удалить"
+      },
+      "deleteBranch": {
+        "itemType": "ветвь",
+        "title": "Удалить",
+        "message": "Вы уверены, что хотите удалить",
+        "warning": "Это действие невозможно будет отменить.",
+        "cancelButtonText": "Отменить",
+        "submitButtonText": "Удалить"
+      },
+      "deletePoint": {
+        "itemType": "пункт",
+        "title": "Удалить",
+        "message": "Вы уверены, что хотите удалить",
+        "warning": "Это действие невозможно будет отменить.",
+        "cancelButtonText": "Отменить",
+        "submitButtonText": "Удалить"
+      },
+      "deleteSubbranch": {
+        "itemType": "подветвь",
+        "title": "Удалить",
+        "message": "Вы уверены, что хотите удалить",
+        "warning": "Это действие невозможно будет отменить.",
+        "cancelButtonText": "Отменить",
+        "submitButtonText": "Удалить"
+      }
+    }
+  }
+}

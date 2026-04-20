@@ -1,0 +1,92 @@
+:root {
+  --font-main: 'Roboto', sans-serif;
+
+  --font-weight-extra-bold: 800;
+  --font-weight-bold: 700;
+  --font-weight-medium: 500;
+  --font-weight-regular: 400;
+  --font-weight-light: 300;
+  --font-weight-extra-light: 200;
+
+  --background-logo-width: 166px;
+  --background-logo-height: 150px;
+
+  /*Z-index*/
+  --z-index-base: 0;
+  --z-index-content: 10;
+  --z-index-content-hover: 15;
+
+  --z-index-header: 110;
+  --z-index-sidebar: 100;
+
+  --z-index-modal-one: 300;
+  --z-index-modal-two: 310;
+  --z-index-modal-three: 320;
+  --z-index-modal-four: 330;
+  --z-index-modal-five: 340;
+
+  --z-index-animation-logo: 600;
+
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-inline-size: 320px;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-background);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+picture {
+  margin: 0;
+  padding: 0;
+}
+
+button,
+a {
+  color: currentColor;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0 auto;
+  position: relative;
+}

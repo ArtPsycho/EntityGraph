@@ -1,0 +1,17 @@
+# OSX
+#
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Environment files
+.env.development
+.env.production
+
+# IDE
+.idea/

@@ -1,0 +1,43 @@
+{
+  "id": "3Fg5obHI7PmBZXN4RUM2c",
+  "name": "Example Entity",
+  "fileName": "3Fg5obHI7PmBZXN4RUM2c.json",
+  "createdAt": "2026-04-02T10:07:55.701Z",
+  "updatedAt": "2026-04-02T10:08:33.435Z",
+  "branches": [
+    {
+      "id": "branch_1",
+      "name": "Introducing the new feature",
+      "createdAt": "2026-04-02T10:07:55.701Z",
+      "points": [
+        {
+          "id": "point_1",
+          "name": "Start point",
+          "description": "This is the start point",
+          "status": "done",
+          "createdAt": "2026-04-02T11:07:55.701Z",
+          "toDoUntil": "2026-04-02T12:08:33.435Z",
+          "doneAt": "2026-04-02T11:08:33.435Z",
+          "subBranches": [
+            {
+              "id": "subbranch_1",
+              "name": "Subbranch 1",
+              "createdAt": "2026-04-02T11:07:55.701Z",
+              "points": [
+                {
+                  "id": "subpoint_1",
+                  "name": "Subpoint 1",
+                  "description": "This is the subpoint 1",
+                  "status": "done",
+                  "createdAt": "2026-04-02T11:07:55.701Z",
+                  "toDoUntil": "2026-04-02T12:08:33.435Z",
+                  "doneAt": "2026-04-02T11:08:33.435Z"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

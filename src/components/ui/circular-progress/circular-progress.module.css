@@ -1,0 +1,22 @@
+.circularProgress {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circularProgressBackground {
+  stroke: var(--color-circular-progress-background);
+}
+
+.circularProgressFill {
+  stroke: var(--color-circular-progress-fill);
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+.circularProgressText {
+  position: absolute;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-circular-progress-text);
+}
