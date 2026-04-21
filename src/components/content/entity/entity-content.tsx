@@ -31,6 +31,8 @@ import {useTheme} from "../../../hooks/useTheme";
 import {DefaultGraphIcon} from "../../../assets/images/icons/graph_icon";
 import {DefaultCommitIcon} from "../../../assets/images/icons/commit_icon";
 import {useTranslation} from "react-i18next";
+import MarkdownRenderer from "../../ui/markdown/markdown-renderer/markdown-renderer";
+import MarkdownEditor from "../../ui/markdown/markdown-editor/markdown-editor";
 
 const EntityContent = () => {
   const { fileName } = useParams<{ fileName: string }>();
@@ -770,13 +772,13 @@ const EntityContent = () => {
                                   </div>
 
                                   <div className={styles.pointInputBox}>
-                                    <label className={styles.pointInputBoxLabel}>{t('entityPage.content.main.pointContent.editPoint.inputDescriptionLabel')}</label>
-                                    <textarea
-                                      className={styles.pointTextarea}
-                                      placeholder={t('entityPage.content.main.pointContent.editPoint.inputDescriptionPlaceholder')}
+                                    <MarkdownEditor
+                                      label={t('entityPage.content.main.pointContent.editPoint.inputDescriptionLabel')}
                                       value={pointDescription}
                                       onChange={(e) => setPointDescription(e.target.value)}
+                                      placeholder={t('entityPage.content.main.pointContent.editPoint.inputDescriptionPlaceholder')}
                                     />
+
                                   </div>
 
                                   <div className={styles.pointInputBox}>
@@ -813,9 +815,12 @@ const EntityContent = () => {
 
 
                                   {point.description.length > 0 && (
-                                    <p className={styles.pointDescription}>
-                                      {point.description}
-                                    </p>
+                                    <div className={styles.pointDescription}>
+                                      <MarkdownRenderer
+                                        content={point.description}
+                                      />
+
+                                    </div>
                                   )}
 
                                   <p className={styles.pointDate}>{t('entityPage.content.main.pointContent.info.createdLabel')}: {new Date(point.createdAt).toLocaleString()}</p>
@@ -946,9 +951,8 @@ const EntityContent = () => {
                                                     </div>
 
                                                     <div className={styles.subBranchInputBox}>
-                                                      <label className={styles.subBranchInputBoxLabel}>{t('entityPage.content.main.subbranchContent.editSubbranch.inputDescriptionLabel')}</label>
-                                                      <textarea
-                                                        className={styles.subBranchTextarea}
+                                                      <MarkdownEditor
+                                                        label={t('entityPage.content.main.subbranchContent.editSubbranch.inputDescriptionLabel')}
                                                         placeholder={t('entityPage.content.main.subbranchContent.editSubbranch.inputDescriptionPlaceholder')}
                                                         value={subBranchDescription}
                                                         onChange={(e) => setSubBranchDescription(e.target.value)}
@@ -988,9 +992,12 @@ const EntityContent = () => {
 
 
                                                     {subBranch.description.length > 0 && (
-                                                      <p className={styles.subBranchDescription}>
-                                                        {subBranch.description}
-                                                      </p>
+                                                      <div className={styles.subBranchDescription}>
+
+                                                        <MarkdownRenderer
+                                                          content={subBranch.description}
+                                                        />
+                                                      </div>
                                                     )}
 
                                                     <p className={styles.subBranchDate}>{t('entityPage.content.main.subbranchContent.info.createdLabel')}: {new Date(subBranch.createdAt).toLocaleString()}</p>

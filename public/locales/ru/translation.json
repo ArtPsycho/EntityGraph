@@ -9,11 +9,47 @@
       "exportButtonText": "Экспорт"
     }
   },
+  "ui": {
+    "markdown": {
+      "editor": {
+        "h1ButtonTitle": "Заголовок 1",
+        "h1ButtonText": "H1",
+        "h2ButtomTitle": "Заголовок 2",
+        "h2ButtonText": "H2",
+        "h3ButtonTitle": "Заголовок 3",
+        "h3ButtonText": "H3",
+        "boldButtonTitle": "Жирный текст",
+        "boldButtonText": "B",
+        "italicButtonTitle": "Курсив",
+        "italicButtonText": "I",
+        "inlineCodeButtonTitle": "Инлайн-код",
+        "inlineCodeButtonText": "< >",
+        "unorderedListButtonTitle": "Маркированный список",
+        "unorderedListButtonText": "• Список",
+        "orderedListButtonTitle": "Нумерованный список",
+        "orderedListButtonText": "1. Список",
+        "quoteButtonTitle": "Цитата",
+        "quoteButtonText": "Цитата",
+        "blockCodeButtonTitle": "Блок кода",
+        "blockCodeButtonText": "{ }",
+        "linkButtonTitle": "Ссылка",
+        "linkButtonText": "Ссылка",
+        "imageButtonTitle": "Изображение",
+        "imageButtonText": "Изобр.",
+        "horizontalLineButtonTitle": "Горизонтальная линия",
+        "horizontalLineButtonText": "―――"
+      }
+    }
+  },
   "homePage": {
     "alert": {
       "noDataImport": "Нет данных для импорта"
     },
     "content": {
+      "header": {
+        "updatesButtonText": "Обновления",
+        "tutorialButtonText": "Обучение"
+      },
       "sort": {
         "sortButtonLabel": "Сортировать по",
         "groupCreatedLabel": "Дате создания",

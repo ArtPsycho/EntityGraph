@@ -19,6 +19,7 @@ import {useTranslation} from "react-i18next";
 import {DefaultLanguageIcon} from "../../../assets/images/icons/language_icon";
 import {DefaultArrowDropDownIcon} from "../../../assets/images/icons/arrow-drop-down_icon";
 import HomeTutorialPopup from "./popup/home-tutorial-popup/home-tutorial-popup";
+import HomeUpdatesPopup from "./popup/home-updates-popup/home-updates-popup";
 
 type SortType = 'createdAtDesc' | 'createdAtAsc' | 'updatedAtDesc' | 'updatedAtAsc' | 'nameAsc' | 'nameDesc';
 
@@ -30,6 +31,7 @@ const HomeContent = () => {
   const [sortType, setSortType] = useState<SortType>('updatedAtDesc');
   const [isDeletePopupActive, setIsDeletePopupActive] = useState<boolean>(false);
   const [entityToDelete, setEntityToDelete] = useState<EntityListItem | null>(null);
+  const [isUpdateListPopupActive, setIsUpdateListPopupActive] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -239,9 +241,16 @@ const HomeContent = () => {
 
           <button
             className={styles.tutorialButton}
+            onClick={() => setIsUpdateListPopupActive(true)}
+          >
+            {t('homePage.content.header.updatesButtonText')}
+          </button>
+
+          <button
+            className={styles.tutorialButton}
             onClick={() => setShowTutorialPopup(true)}
           >
-            Tutorial
+            {t('homePage.content.header.tutorialButtonText')}
           </button>
 
           <div
@@ -366,6 +375,10 @@ const HomeContent = () => {
         active={showTutorialPopup}
         onClose={() => setShowTutorialPopup(false)}
         onSkip={handleSkipTutorial}
+      />
+      <HomeUpdatesPopup
+        active={isUpdateListPopupActive}
+        onClose={() => setIsUpdateListPopupActive(false)}
       />
     </div>
   );

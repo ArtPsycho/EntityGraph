@@ -9,11 +9,47 @@
       "exportButtonText": "Export"
     }
   },
+  "ui": {
+    "markdown": {
+      "editor": {
+        "h1ButtonTitle": "Header 1",
+        "h1ButtonText": "H1",
+        "h2ButtomTitle": "Header 2",
+        "h2ButtonText": "H2",
+        "h3ButtonTitle": "Header 3",
+        "h3ButtonText": "H3",
+        "boldButtonTitle": "Bold text",
+        "boldButtonText": "B",
+        "italicButtonTitle": "Italic text",
+        "italicButtonText": "I",
+        "inlineCodeButtonTitle": "Inline code",
+        "inlineCodeButtonText": "< >",
+        "unorderedListButtonTitle": "Unordered list",
+        "unorderedListButtonText": "• List",
+        "orderedListButtonTitle": "Ordered list",
+        "orderedListButtonText": "1. List",
+        "quoteButtonTitle": "Blockquote",
+        "quoteButtonText": "Blockquote",
+        "blockCodeButtonTitle": "Code block",
+        "blockCodeButtonText": "{ }",
+        "linkButtonTitle": "Link",
+        "linkButtonText": "Link",
+        "imageButtonTitle": "Image",
+        "imageButtonText": "Image",
+        "horizontalLineButtonTitle": "Horizontal line",
+        "horizontalLineButtonText": "―――"
+      }
+    }
+  },
   "homePage": {
     "alert": {
       "noDataImport": "No data to import"
     },
     "content": {
+      "header": {
+        "updatesButtonText": "Updates",
+        "tutorialButtonText": "Tutorial"
+      },
       "sort": {
         "sortButtonLabel": "Sort by",
         "groupCreatedLabel": "Date Created",

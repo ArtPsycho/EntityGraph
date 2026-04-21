@@ -1,0 +1,94 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-background-overlay);
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.popup {
+  width: 100%;
+  max-width: 600px;
+  min-width: 280px;
+  max-height: 100%;
+  padding: 20px;
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+  background-color: var(--color-background-popup);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--box-shadow-md-primary);
+  box-sizing: border-box;
+}
+
+.popupHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.closeButton {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-button-ghost);
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  background-color: var(--color-button-ghost-hover);
+}
+
+.updatesList {
+  width: 100%;
+  padding: 0 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.updatesList::-webkit-scrollbar {
+  width: 10px;
+}
+
+.updatesList::-webkit-scrollbar-track {
+  background: var(--color-scrollbar-track);
+}
+
+.updatesList::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar-thumb);
+}
+
+.updatesList::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-thumb-hover);
+}
+
+.updateItem {
+  width: 100%;
+  padding: 0 0 5px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-left: 4px solid var(--color-border-accent);
+}
