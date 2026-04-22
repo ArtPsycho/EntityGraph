@@ -80,6 +80,23 @@ export async function updateBranch(
   return await updateEntity(updatedEntity);
 }
 
+export async function reorderBranches(
+  entity: Entity,
+  sourceIndex: number,
+  destinationIndex: number
+): Promise<Entity> {
+  const reorderedBranches = [...entity.branches];
+  const [removed] = reorderedBranches.splice(sourceIndex, 1);
+  reorderedBranches.splice(destinationIndex, 0, removed);
+
+  const updatedEntity = {
+    ...entity,
+    branches: reorderedBranches
+  };
+
+  return await updateEntity(updatedEntity);
+}
+
 export async function deleteBranch(entity: Entity, branchId: string): Promise<Entity> {
   const updatedEntity = {
     ...entity,
@@ -143,6 +160,31 @@ export async function updatePoint(
       }
       return branch;
     })
+  };
+
+  return await updateEntity(updatedEntity);
+}
+
+export async function reorderPoints(
+  entity: Entity,
+  branchId: string,
+  sourceIndex: number,
+  destinationIndex: number
+): Promise<Entity> {
+  const branch = entity.branches.find(b => b.id === branchId);
+  if (!branch) return entity;
+
+  const reorderedPoints = [...branch.points];
+  const [removed] = reorderedPoints.splice(sourceIndex, 1);
+  reorderedPoints.splice(destinationIndex, 0, removed);
+
+  const updatedEntity = {
+    ...entity,
+    branches: entity.branches.map(b =>
+      b.id === branchId
+        ? { ...b, points: reorderedPoints }
+        : b
+    )
   };
 
   return await updateEntity(updatedEntity);
@@ -240,6 +282,42 @@ export async function updateSubBranchInPoint(
       }
       return branch;
     })
+  };
+
+  return await updateEntity(updatedEntity);
+}
+
+export async function reorderSubBranches(
+  entity: Entity,
+  branchId: string,
+  pointId: string,
+  sourceIndex: number,
+  destinationIndex: number
+): Promise<Entity> {
+  const branch = entity.branches.find(b => b.id === branchId);
+  if (!branch) return entity;
+
+  const point = branch.points.find(p => p.id === pointId);
+  if (!point) return entity;
+
+  const reorderedSubBranches = [...point.subBranches];
+  const [removed] = reorderedSubBranches.splice(sourceIndex, 1);
+  reorderedSubBranches.splice(destinationIndex, 0, removed);
+
+  const updatedEntity = {
+    ...entity,
+    branches: entity.branches.map(b =>
+      b.id === branchId
+        ? {
+          ...b,
+          points: b.points.map(p =>
+            p.id === pointId
+              ? { ...p, subBranches: reorderedSubBranches }
+              : p
+          )
+        }
+        : b
+    )
   };
 
   return await updateEntity(updatedEntity);

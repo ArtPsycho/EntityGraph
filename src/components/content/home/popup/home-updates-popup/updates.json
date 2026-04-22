@@ -1,6 +1,7 @@
 {
   "updates": {
     "1.0.0": "# Project's first steps\n\n`ver 1.0.0 - 20.04.2026`\n\nWe are pleased to launch this project as an aid in planning your major work, academic, and personal tasks. Good luck!\n\n## Features\n - Create and manage entities\n - Build hierarchical trees and branches with your tasks\n - Track progress and statuses\n - Export / Import data (JSON format)\n - Dark / Light theme support\n - Multi-language support (English, Russian)\n - Real-time graph visualization",
-    "1.1.0": "# New features\n\n`ver 1.1.0 - 21.04.2026`\n\nEntity Graph now have more useful features for the best productivity.\n\n## Features\n- Added a Markdown viewer to the point and subbranch description fields\n- Added a Markdown editor to the point and subbranch description input fields\n- Added a list of updates to the Home page"
+    "1.1.0": "# New features\n\n`ver 1.1.0 - 21.04.2026`\n\nEntity Graph now have more useful features for the best productivity.\n\n## Features\n- Added a Markdown viewer to the point and subbranch description fields\n- Added a Markdown editor to the point and subbranch description input fields\n- Added a list of updates to the Home page",
+    "1.2.0": "# New features\n\n`ver 1.2.0 - 22.04.2026`\n\nEntity Graph now have more useful features for the best productivity.\n\n## Features\n- Added the ability to change the order of branches\n- Added the ability to change the order of points\n- Added the ability to change the order of subbranches"
   }
 }

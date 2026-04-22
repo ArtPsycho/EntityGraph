@@ -7,7 +7,8 @@ import {
   addBranch,
   addPointToBranch, addSubBranchToPoint,
   deleteBranch,
-  deletePoint, deleteSubBranchFromPoint, getAllEntities, getEntity, removeEntity,
+  deletePoint, deleteSubBranchFromPoint, getAllEntities, getEntity, removeEntity, reorderBranches, reorderPoints,
+  reorderSubBranches,
   updateBranch, updateEntity, updateEntityName,
   updatePoint, updateSubBranchInPoint
 } from "../../../services/entityManager";
@@ -33,6 +34,10 @@ import {DefaultCommitIcon} from "../../../assets/images/icons/commit_icon";
 import {useTranslation} from "react-i18next";
 import MarkdownRenderer from "../../ui/markdown/markdown-renderer/markdown-renderer";
 import MarkdownEditor from "../../ui/markdown/markdown-editor/markdown-editor";
+import {DefaultLeftArrowIcon} from "../../../assets/images/icons/left-arrow_icon";
+import {DefaultRightArrowIcon} from "../../../assets/images/icons/right-arrow_icon";
+import {DefaultArrowUpwardIcon} from "../../../assets/images/icons/arrow-upward_icon";
+import {DefaultArrowDownwardIcon} from "../../../assets/images/icons/arrow-downward_icon";
 
 const EntityContent = () => {
   const { fileName } = useParams<{ fileName: string }>();
@@ -429,6 +434,48 @@ const EntityContent = () => {
   };
 
 
+  const moveBranchUp = async (index: number) => {
+    if (fileData && index > 0) {
+      const updatedEntity = await reorderBranches(fileData, index, index - 1);
+      setFileData(updatedEntity);
+    }
+  };
+
+  const moveBranchDown = async (index: number) => {
+    if (fileData && index < fileData.branches.length - 1) {
+      const updatedEntity = await reorderBranches(fileData, index, index + 1);
+      setFileData(updatedEntity);
+    }
+  };
+
+  const movePointUp = async (branchId: string, pointIndex: number) => {
+    if (fileData && pointIndex > 0) {
+      const updatedEntity = await reorderPoints(fileData, branchId, pointIndex, pointIndex - 1);
+      setFileData(updatedEntity);
+    }
+  };
+
+  const movePointDown = async (branchId: string, pointIndex: number, totalPoints: number) => {
+    if (fileData && pointIndex < totalPoints - 1) {
+      const updatedEntity = await reorderPoints(fileData, branchId, pointIndex, pointIndex + 1);
+      setFileData(updatedEntity);
+    }
+  };
+
+  const moveSubBranchUp = async (branchId: string, pointId: string, subBranchIndex: number) => {
+    if (fileData && subBranchIndex > 0) {
+      const updatedEntity = await reorderSubBranches(fileData, branchId, pointId, subBranchIndex, subBranchIndex - 1);
+      setFileData(updatedEntity);
+    }
+  };
+
+  const moveSubBranchDown = async (branchId: string, pointId: string, subBranchIndex: number, totalSubBranches: number) => {
+    if (fileData && subBranchIndex < totalSubBranches - 1) {
+      const updatedEntity = await reorderSubBranches(fileData, branchId, pointId, subBranchIndex, subBranchIndex + 1);
+      setFileData(updatedEntity);
+    }
+  };
+
 
   return (
     <div className={styles.content}>
@@ -668,29 +715,49 @@ const EntityContent = () => {
                           <p className={styles.branchHeaderInfoText}>{t('entityPage.content.main.branchContent.branchHeader.branchPointsLabel')}: {branch.points.length}</p>
                         </div>
                         <div className={styles.branchHeaderInteraction}>
-                          <button
-                            className={styles.editBranchButton}
-                            onClick={() => {
-                              setBranchName(branch.name);
-                              setActiveBranchId(branch.id)
-                            }}
-                            title={t('entityPage.content.main.branchContent.branchHeader.editBranchButtonTitle')}
-                          >
-                            <DefaultEditPencilIcon width="24px" height="24px" color="#fff" />
-                          </button>
-                          <button
-                            onClick={() => openDeleteConfirmation(branch.id, branch.name)}
-                            className={styles.deleteBranchButton}
-                            title={t('entityPage.content.main.branchContent.branchHeader.deleteBranchButtonTitle')}
-                          >
-                            <DefaultDeleteIcon width="24px" height="24px" color="#fff" />
-                          </button>
+                          <div className={styles.moveBranchButtons}>
+                            <button
+                              className={styles.moveBranchButton}
+                              onClick={() => moveBranchUp(index)}
+                              disabled={index === 0}
+                              title="Move branch left"
+                            >
+                              <DefaultLeftArrowIcon width="24px" height="24px" />
+                            </button>
+                            <button
+                              className={styles.moveBranchButton}
+                              onClick={() => moveBranchDown(index)}
+                              disabled={index === fileData.branches.length - 1}
+                              title="Move branch right"
+                            >
+                              <DefaultRightArrowIcon width="24px" height="24px" />
+                            </button>
+                          </div>
+
+                          <div className={styles.branchHeaderInteractionEdit}>
+                            <button
+                              className={styles.editBranchButton}
+                              onClick={() => {
+                                setBranchName(branch.name);
+                                setActiveBranchId(branch.id)
+                              }}
+                              title={t('entityPage.content.main.branchContent.branchHeader.editBranchButtonTitle')}
+                            >
+                              <DefaultEditPencilIcon width="24px" height="24px" color="#fff" />
+                            </button>
+                            <button
+                              onClick={() => openDeleteConfirmation(branch.id, branch.name)}
+                              className={styles.deleteBranchButton}
+                              title={t('entityPage.content.main.branchContent.branchHeader.deleteBranchButtonTitle')}
+                            >
+                              <DefaultDeleteIcon width="24px" height="24px" color="#fff" />
+                            </button>
+                          </div>
+
+
                         </div>
                       </>
                     )}
-
-
-
                   </div>
 
                   {/*Branch content*/}
@@ -711,7 +778,7 @@ const EntityContent = () => {
 
                       ) : (
                         <div className={styles.pointsList}>
-                          {branch.points.map((point) => (
+                          {branch.points.map((point, index) => (
 
                             <div key={point.id} className={styles.point}>
 
@@ -792,9 +859,33 @@ const EntityContent = () => {
                                   </div>
                                 </div>
                               ) : (
-                                <div className={styles.pointBox}>
+                                <div className={`${styles.pointBox} ${branch.points.length === 1 ? styles.singlePoint : ''}`}>
 
+                                  {branch.points.length > 1 && (
+                                  <div className={styles.movePointButtons}>
+                                    <button
+                                      className={styles.movePointButton}
+                                      onClick={() => movePointUp(branch.id, index)}
+                                      disabled={index === 0}
+                                      title="Move point up"
+                                    >
+                                      <DefaultArrowUpwardIcon width="20px" height="20px" />
+                                    </button>
+                                    <button
+                                      className={styles.movePointButton}
+                                      onClick={() => movePointDown(branch.id, index, branch.points.length)}
+                                      disabled={index === branch.points.length - 1}
+                                      title="Move point down"
+                                    >
+                                      <DefaultArrowDownwardIcon width="20px" height="20px" />
+                                    </button>
+                                  </div>
+                                    )}
+
+                                  <div className={styles.pointContent}>
                                   <div className={styles.pointHeader}>
+
+
                                     <h4 className={styles.pointName}>
                                       {point.name}
                                     </h4>
@@ -893,7 +984,7 @@ const EntityContent = () => {
 
                                         ) : (
                                           <div className={styles.subBranchList}>
-                                            {point.subBranches.map((subBranch) => (
+                                            {point.subBranches.map((subBranch, index) => (
                                               <div className={styles.subBranch} key={subBranch.id}>
                                                 {activeSubbranchId === subBranch.id ? (
                                                   <div className={styles.subBranchEditBox}>
@@ -972,66 +1063,88 @@ const EntityContent = () => {
                                                 ) : (
                                                   <div className={styles.subBranchBox}>
 
-                                                    <div className={styles.subBranchHeader}>
-                                                      <h4 className={styles.subBranchName}>
-                                                        {subBranch.name}
-                                                      </h4>
-
+                                                    <div className={styles.moveSubbranchButtons}>
                                                       <button
-                                                        className={styles.editSubBranchButton}
-                                                        onClick={() => {
-                                                          setSubBranchName(subBranch.name);
-                                                          setSubBranchDescription(subBranch.description);
-                                                          setSubBranchToUntilDate(subBranch.toDoUntil);
-                                                          setActiveSubbranchId(subBranch.id);
-                                                        }}
+                                                        className={styles.moveSubbranchButton}
+                                                        onClick={() => moveSubBranchUp(branch.id, point.id, index)}
+                                                        disabled={index === 0}
+                                                        title="Move subbranch up"
                                                       >
-                                                        <DefaultEditPencilIcon width="20px" height="20px" color="#fff" />
+                                                        <DefaultArrowUpwardIcon width="20px" height="20px" />
+                                                      </button>
+                                                      <button
+                                                        className={styles.moveSubbranchButton}
+                                                        onClick={() => moveSubBranchDown(branch.id, point.id, index, point.subBranches.length)}
+                                                        disabled={index === point.subBranches.length - 1}
+                                                        title="Move subbranch down"
+                                                      >
+                                                        <DefaultArrowDownwardIcon width="20px" height="20px" />
                                                       </button>
                                                     </div>
 
+                                                    <div className={styles.subBranchMainContent}>
 
-                                                    {subBranch.description.length > 0 && (
-                                                      <div className={styles.subBranchDescription}>
+                                                      <div className={styles.subBranchHeader}>
+                                                        <h4 className={styles.subBranchName}>
+                                                          {subBranch.name}
+                                                        </h4>
 
-                                                        <MarkdownRenderer
-                                                          content={subBranch.description}
-                                                        />
-                                                      </div>
-                                                    )}
-
-                                                    <p className={styles.subBranchDate}>{t('entityPage.content.main.subbranchContent.info.createdLabel')}: {new Date(subBranch.createdAt).toLocaleString()}</p>
-
-                                                    {subBranch.toDoUntil.length > 0 ? (
-                                                      <p className={styles.subBranchDate}>{t('entityPage.content.main.subbranchContent.info.doUntilLabel')}: {new Date(subBranch.toDoUntil).toLocaleString()}</p>
-                                                    ) : (
-                                                      <p className={styles.subBranchDate}>{t('entityPage.content.main.subbranchContent.info.noLimitLabel')}</p>
-                                                    )}
-
-                                                    <div className={styles.statusBox}>
-                                                      <button
-                                                        className={`${styles.subBranchStatus} ${styles[`${subBranch.status}`]}`}
-                                                        onClick={() => {
-                                                          setActiveSubbranchStatusId(subBranch.id);
-                                                          setIsSubbranchStatusPopupOpen(true);
-                                                        }}
-                                                      >
-                                                        {formatStatus(subBranch.status)}
-                                                      </button>
-
-                                                      {activeSubbranchStatusId === subBranch.id && (
-                                                        <EntityChangePointStatusPopup
-                                                          active={isSubbranchStatusPopupOpen}
-                                                          onClose={() => {
-                                                            setActiveSubbranchStatusId(null);
-                                                            setIsSubbranchStatusPopupOpen(false);
+                                                        <button
+                                                          className={styles.editSubBranchButton}
+                                                          onClick={() => {
+                                                            setSubBranchName(subBranch.name);
+                                                            setSubBranchDescription(subBranch.description);
+                                                            setSubBranchToUntilDate(subBranch.toDoUntil);
+                                                            setActiveSubbranchId(subBranch.id);
                                                           }}
-                                                          onSelectStatus={(newStatus) =>
-                                                            handleUpdateSubBranchStatus(branch.id, point.id, subBranch.id, newStatus)
-                                                          }
-                                                          currentStatus={subBranch.status}
-                                                        />
+                                                        >
+                                                          <DefaultEditPencilIcon width="20px" height="20px" color="#fff" />
+                                                        </button>
+                                                      </div>
+
+
+                                                      {subBranch.description.length > 0 && (
+                                                        <div className={styles.subBranchDescription}>
+
+                                                          <MarkdownRenderer
+                                                            content={subBranch.description}
+                                                          />
+                                                        </div>
                                                       )}
+
+                                                      <p className={styles.subBranchDate}>{t('entityPage.content.main.subbranchContent.info.createdLabel')}: {new Date(subBranch.createdAt).toLocaleString()}</p>
+
+                                                      {subBranch.toDoUntil.length > 0 ? (
+                                                        <p className={styles.subBranchDate}>{t('entityPage.content.main.subbranchContent.info.doUntilLabel')}: {new Date(subBranch.toDoUntil).toLocaleString()}</p>
+                                                      ) : (
+                                                        <p className={styles.subBranchDate}>{t('entityPage.content.main.subbranchContent.info.noLimitLabel')}</p>
+                                                      )}
+
+                                                      <div className={styles.statusBox}>
+                                                        <button
+                                                          className={`${styles.subBranchStatus} ${styles[`${subBranch.status}`]}`}
+                                                          onClick={() => {
+                                                            setActiveSubbranchStatusId(subBranch.id);
+                                                            setIsSubbranchStatusPopupOpen(true);
+                                                          }}
+                                                        >
+                                                          {formatStatus(subBranch.status)}
+                                                        </button>
+
+                                                        {activeSubbranchStatusId === subBranch.id && (
+                                                          <EntityChangePointStatusPopup
+                                                            active={isSubbranchStatusPopupOpen}
+                                                            onClose={() => {
+                                                              setActiveSubbranchStatusId(null);
+                                                              setIsSubbranchStatusPopupOpen(false);
+                                                            }}
+                                                            onSelectStatus={(newStatus) =>
+                                                              handleUpdateSubBranchStatus(branch.id, point.id, subBranch.id, newStatus)
+                                                            }
+                                                            currentStatus={subBranch.status}
+                                                          />
+                                                        )}
+                                                      </div>
                                                     </div>
 
                                                   </div>
@@ -1064,14 +1177,10 @@ const EntityContent = () => {
                                       </button>
                                     </>
                                   )}
-
-
+                                </div>
                                 </div>
                               )}
                             </div>
-
-
-
 
                           ))}
                           <div className={styles.pointListInteraction}>
