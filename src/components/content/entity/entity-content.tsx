@@ -1245,14 +1245,9 @@ const EntityContent = () => {
                   </div>
 
                 </div>
-
-
               ))}
             </div>
           )}
-
-
-
         </div>
       </div>
 
@@ -1262,58 +1257,66 @@ const EntityContent = () => {
         onCreateBranch={handleCreateBranch}
       />
 
-      <EntityDeleteEntityPopup
-        active={isDeleteEntityPopupOpen}
-        onClose={() => setIsDeleteEntityPopupOpen(false)}
-        onConfirm={() => handleDeleteEntity(fileData.id)}
-        itemName={fileData?.name || ''}
-        itemType={t('entityPage.popup.deleteEntity.itemType')}
-      />
+      {isDeleteEntityPopupOpen && fileData && (
+        <EntityDeleteEntityPopup
+          active={isDeleteEntityPopupOpen}
+          onClose={() => setIsDeleteEntityPopupOpen(false)}
+          onConfirm={() => handleDeleteEntity(fileData.id)}
+          itemName={fileData?.name || ''}
+          itemType={t('entityPage.popup.deleteEntity.itemType')}
+        />
+      )}
 
-      <EntityDeleteBranchPopup
-        active={isDeleteBranchPopupOpen}
-        onClose={() => {
-          setIsDeleteBranchPopupOpen(false);
-          setBranchToDelete(null);
-        }}
-        onConfirm={() => {
-          if (branchToDelete) {
-            handleDeleteBranch(branchToDelete.id);
-          }
-        }}
-        itemName={branchToDelete?.name || ''}
-        itemType={t('entityPage.popup.deleteBranch.itemType')}
-      />
+      {isDeleteBranchPopupOpen && branchToDelete &&
+          <EntityDeleteBranchPopup
+              active={isDeleteBranchPopupOpen}
+              onClose={() => {
+                setIsDeleteBranchPopupOpen(false);
+                setBranchToDelete(null);
+              }}
+              onConfirm={() => {
+                if (branchToDelete) {
+                  handleDeleteBranch(branchToDelete.id);
+                }
+              }}
+              itemName={branchToDelete?.name || ''}
+              itemType={t('entityPage.popup.deleteBranch.itemType')}
+          />
+      }
 
-      <EntityDeletePointPopup
-        active={isDeletePointPopupOpen}
-        onClose={() => {
-          setIsDeletePointPopupOpen(false)
-          setPointToDelete(null);
-        }}
-        onConfirm={() => {
-          if (pointToDelete) {
-            handleDeletePoint(pointToDelete.branchId, pointToDelete.pointId)
-          }
-        }}
-        itemName={pointToDelete?.name || ''}
-        itemType={t('entityPage.popup.deletePoint.itemType')}
-      />
+      {isDeletePointPopupOpen && pointToDelete && (
+        <EntityDeletePointPopup
+          active={isDeletePointPopupOpen}
+          onClose={() => {
+            setIsDeletePointPopupOpen(false)
+            setPointToDelete(null);
+          }}
+          onConfirm={() => {
+            if (pointToDelete) {
+              handleDeletePoint(pointToDelete.branchId, pointToDelete.pointId)
+            }
+          }}
+          itemName={pointToDelete?.name || ''}
+          itemType={t('entityPage.popup.deletePoint.itemType')}
+        />
+      )}
 
-      <EntityDeleteSubBranchPopup
-        active={isDeleteSubbranchPopupOpen}
-        onClose={() => {
-          setIsDeleteSubbranchPopupOpen(false)
-          setSubBranchToDelete(null);
-        }}
-        onConfirm={() => {
-          if (subBranchToDelete) {
-            handleDeleteSubBranch(subBranchToDelete.branchId, subBranchToDelete.pointId, subBranchToDelete.subBranchId)
-          }
-        }}
-        itemName={subBranchToDelete?.name || ''}
-        itemType={t('entityPage.popup.deleteSubbranch.itemType')}
-      />
+      {isDeleteSubbranchPopupOpen && subBranchToDelete && (
+        <EntityDeleteSubBranchPopup
+          active={isDeleteSubbranchPopupOpen}
+          onClose={() => {
+            setIsDeleteSubbranchPopupOpen(false)
+            setSubBranchToDelete(null);
+          }}
+          onConfirm={() => {
+            if (subBranchToDelete) {
+              handleDeleteSubBranch(subBranchToDelete.branchId, subBranchToDelete.pointId, subBranchToDelete.subBranchId)
+            }
+          }}
+          itemName={subBranchToDelete?.name || ''}
+          itemType={t('entityPage.popup.deleteSubbranch.itemType')}
+        />
+      )}
 
     </div>
   );
