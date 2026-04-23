@@ -8,14 +8,15 @@ import {useLanguage} from "../../hooks/useLanguage";
 function App() {
 
   useEffect(() => {
-    //  page title
     const path = window.location.pathname;
-    switch (path) {
-      case '/home':
+
+    switch (true) {
+      case path.startsWith('/home'):
         document.title = 'Home';
         break;
-      case '/entity/:fileName':
+      case path.startsWith('/entity/'):
         document.title = 'Entity';
+        break;
       default:
         document.title = 'Graph Tracker';
     }

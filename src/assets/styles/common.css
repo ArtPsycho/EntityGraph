@@ -1,12 +1,15 @@
 :root {
   --font-main: 'Roboto', sans-serif;
 
+  --font-weight-black: 900;
   --font-weight-extra-bold: 800;
   --font-weight-bold: 700;
+  --font-weight-semi-bold: 600;
   --font-weight-medium: 500;
   --font-weight-regular: 400;
   --font-weight-light: 300;
   --font-weight-extra-light: 200;
+  --font-weight-thin: 100;
 
   --background-logo-width: 166px;
   --background-logo-height: 150px;

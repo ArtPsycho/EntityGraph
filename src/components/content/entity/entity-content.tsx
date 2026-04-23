@@ -160,14 +160,6 @@ const EntityContent = () => {
       console.log('Points after update:', updatedEntity.branches.find(b => b.id === branchId)?.points);
 
       setFileData(updatedEntity);
-
-      // Здесь можно открыть попап редактирования для новой точки
-      // const newPoint = updatedEntity.branches.find(b => b.id === branchId)?.points.slice(-1)[0];
-      // if (newPoint) {
-      //   openEditPointPopup(branchId, newPoint.id);
-      // }
-
-
     }
   }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import '../public/locales/i18n';
+import '../locales/i18n';
 import App from './components/app/app';
 import '../src/assets/styles/index.css';
 import { BrowserRouter } from 'react-router-dom';

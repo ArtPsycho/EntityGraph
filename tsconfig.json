@@ -19,6 +19,6 @@
   },
   "outDir": "./dist/",
   "include": ["src/**/*",
-    "public/locales/i18n.js"
+    "locales/i18n.js"
   ]
 }
