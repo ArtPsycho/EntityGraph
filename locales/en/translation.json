@@ -189,6 +189,7 @@
       "main": {
         "interaction": {
           "newBranchButtonText": "+ New Branch",
+          "viewGraphButtonText": "Graph Tree",
           "deleteEntityButtonText": "Delete entity",
           "exportEntityButtonText": "Export entity"
         },
@@ -297,6 +298,32 @@
         "warning": "This action cannot be undone.",
         "cancelButtonText": "Cancel",
         "submitButtonText": "Delete"
+      }
+    },
+    "modal": {
+      "graph": {
+        "title": "Graph Tree",
+        "branchesLabel": "branches",
+        "pointsLabel": "points",
+        "subbranchesLabel": "subbranches",
+        "progressLabel": "complete",
+        "resetButtonTitle": "Reset graph",
+        "closeButtonTitle": "Close modal",
+        "pendingStatusLabel": "Pending",
+        "inProgressStatusLabel": "In Progress",
+        "doneStatusLabel": "Done",
+        "expandCollapseLabel": "Click on nodes to expand/collapse & center",
+        "scrollDragLabel": "Scroll to zoom | Drag to pan",
+        "content": {
+          "entityLabel": "Entity",
+          "branchLabel": "Branch",
+          "pointLabel": "Point",
+          "subbranchLabel": "Subbranch",
+          "graphProgressLabel": "Progress",
+          "graphPointsLabel": "points",
+          "graphSubbranchesLabel": "subbranches",
+          "graphTimeLimitLabel": "No time limit"
+        }
       }
     }
   }

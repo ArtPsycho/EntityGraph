@@ -38,6 +38,7 @@ import {DefaultLeftArrowIcon} from "../../../assets/images/icons/left-arrow_icon
 import {DefaultRightArrowIcon} from "../../../assets/images/icons/right-arrow_icon";
 import {DefaultArrowUpwardIcon} from "../../../assets/images/icons/arrow-upward_icon";
 import {DefaultArrowDownwardIcon} from "../../../assets/images/icons/arrow-downward_icon";
+import EntityGraphModal from "./modal/entity-graph-modal/entity-graph-modal";
 
 const EntityContent = () => {
   const { fileName } = useParams<{ fileName: string }>();
@@ -79,6 +80,8 @@ const EntityContent = () => {
   const [entityName, setEntityName] = useState('');
   const [activeEntityEdit, setActiveEntityEdit] = useState<boolean>(false);
   const [isDeleteEntityPopupOpen, setIsDeleteEntityPopupOpen] = useState<boolean>(false);
+
+  const [isGraphModalOpen, setIsGraphModalOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const { currentTheme } = useTheme();
@@ -626,12 +629,22 @@ const EntityContent = () => {
       <div className={styles.mainBox}>
 
         <div className={styles.interactionBox}>
-          <button
-            className={styles.addBranchButton}
-            onClick={() => setIsCreateBranchPopupOpen(true)}
-          >
-            {t('entityPage.content.main.interaction.newBranchButtonText')}
-          </button>
+          <div className={styles.interactionBoxGraph}>
+            <button
+              className={styles.addBranchButton}
+              onClick={() => setIsCreateBranchPopupOpen(true)}
+            >
+              {t('entityPage.content.main.interaction.newBranchButtonText')}
+            </button>
+
+            <button
+              className={styles.exportEntityButton}
+              onClick={() => setIsGraphModalOpen(true)}
+            >
+              <DefaultGraphIcon width="20px" height="20px" color="#fff" />
+              {t('entityPage.content.main.interaction.viewGraphButtonText')}
+            </button>
+          </div>
 
           <div className={styles.interactionBoxEntity}>
             <button
@@ -1315,6 +1328,14 @@ const EntityContent = () => {
           }}
           itemName={subBranchToDelete?.name || ''}
           itemType={t('entityPage.popup.deleteSubbranch.itemType')}
+        />
+      )}
+
+      {isGraphModalOpen && fileData && (
+        <EntityGraphModal
+          active={isGraphModalOpen}
+          onClose={() => setIsGraphModalOpen(false)}
+          fileData={fileData}
         />
       )}
 

@@ -189,6 +189,7 @@
       "main": {
         "interaction": {
           "newBranchButtonText": "+ Новая ветвь",
+          "viewGraphButtonText": "Дерево графов",
           "deleteEntityButtonText": "Удалить сущность",
           "exportEntityButtonText": "Экспортировать сущность"
         },
@@ -297,6 +298,32 @@
         "warning": "Это действие невозможно будет отменить.",
         "cancelButtonText": "Отменить",
         "submitButtonText": "Удалить"
+      }
+    },
+    "modal": {
+      "graph": {
+        "title": "Дерево графов",
+        "branchesLabel": "веток",
+        "pointsLabel": "пунктов",
+        "subbranchesLabel": "подветок",
+        "progressLabel": "завершено",
+        "resetButtonTitle": "Сбросить графы",
+        "closeButtonTitle": "Закрыть модальное окно",
+        "pendingStatusLabel": "В ожидании",
+        "inProgressStatusLabel": "В процессе",
+        "doneStatusLabel": "Завершено",
+        "expandCollapseLabel": "Нажмите на узлы, чтобы развернуть/свернуть и центрировать их",
+        "scrollDragLabel": "Прокрутите для масштабирования | Перетащите для панорамирования",
+        "content": {
+          "entityLabel": "Сущность",
+          "branchLabel": "Ветка",
+          "pointLabel": "Пункт",
+          "subbranchLabel": "Подветка",
+          "graphProgressLabel": "Прогресс",
+          "graphPointsLabel": "пунктов",
+          "graphSubbranchesLabel": "подветок",
+          "graphTimeLimitLabel": "Без ограничений по времени"
+        }
       }
     }
   }
