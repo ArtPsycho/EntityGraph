@@ -54,6 +54,7 @@
   margin: 0.5rem 0;
   line-height: 1.6;
   color: var(--color-text-primary);
+  word-break: break-word;
 }
 
 .strong {

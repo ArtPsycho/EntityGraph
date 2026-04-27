@@ -166,7 +166,7 @@
         "tomorrow": "Завтра"
       },
       "infoBar": {
-        "goBackButtonText": "Вернуться назад",
+        "goBackButtonText": "Вернуться",
         "editEntity": {
           "cancelButtonTitle": "Отменить редактирование",
           "submitButtonTitle": "Подтвердить редактирование",
@@ -190,8 +190,8 @@
         "interaction": {
           "newBranchButtonText": "+ Новая ветвь",
           "viewGraphButtonText": "Дерево графов",
-          "deleteEntityButtonText": "Удалить сущность",
-          "exportEntityButtonText": "Экспортировать сущность"
+          "deleteEntityButtonText": "Удалить",
+          "exportEntityButtonText": "Экспортировать"
         },
         "branchContent": {
           "noBranches": "Ветвей пока нет",
@@ -207,6 +207,7 @@
         },
         "pointContent": {
           "createPointButtonText": "+ Новый пункт",
+          "defaultNewPointName": "Новый пункт",
           "noPoints": {
             "noPointsMessage": "Пунктов пока нет",
             "addPointButtonText": "+ Новый пункт"
@@ -232,6 +233,7 @@
           "viewLessButtonText": "Показать меньше",
           "viewMoreButtonText": "Показать больше",
           "createSubbranchButtonText": "+ Новая подветвь",
+          "defaultNewSubbranchName": "Новая подветвь",
           "noSubbranches": {
             "noSubbranchesMessage": "Подветвей пока нет",
             "createSubbranchButtonText": "+ Новая подветвь"

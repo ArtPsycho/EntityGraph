@@ -207,6 +207,7 @@
         },
         "pointContent": {
           "createPointButtonText": "+ New Point",
+          "defaultNewPointName": "New Point",
           "noPoints": {
             "noPointsMessage": "No points yet",
             "addPointButtonText": "+ New Point"
@@ -232,6 +233,7 @@
           "viewLessButtonText": "View less",
           "viewMoreButtonText": "View more",
           "createSubbranchButtonText": "+ New Subbranch",
+          "defaultNewSubbranchName": "New Subbranch",
           "noSubbranches": {
             "noSubbranchesMessage": "No subbranches yet",
             "createSubbranchButtonText": "+ New Subbranch"

@@ -151,7 +151,7 @@ const EntityContent = () => {
   const handleCreatePoint = async (branchId: string) => {
     if (fileData) {
       const defaultPointData: Omit<Point, 'id' | 'createdAt'> = {
-        name: 'New Point',
+        name: `${t('entityPage.content.main.pointContent.defaultNewPointName')}`,
         description: '',
         status: 'pending',
         toDoUntil: '',
@@ -179,7 +179,7 @@ const EntityContent = () => {
   const handleCreateSubBranch = async (branchId: string, pointId: string) => {
     if (fileData) {
       const defaultSubBranchData: Omit<SubBranch, 'id' | 'createdAt'> = {
-        name: 'New Subbranch',
+        name: `${t('entityPage.content.main.subbranchContent.defaultNewSubbranchName')}`,
         description: '',
         status: 'pending',
         toDoUntil: ''
