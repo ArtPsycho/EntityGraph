@@ -3,7 +3,6 @@ import { Share } from '@capacitor/share';
 import { FilePicker } from '@capawesome/capacitor-file-picker';
 import type { Entity, EntityListItem } from '../types/entity';
 
-
 const isElectron = (): boolean => (window as any).electronAPI?.isElectron === true;
 const isCapacitor = (): boolean => !!(window as any).Capacitor?.isNativePlatform();
 
@@ -33,9 +32,30 @@ const initIndexedDB = (): Promise<IDBDatabase> => {
   });
 };
 
+function ensureNotesField(entity: any): Entity {
+  if (!entity) return entity;
+
+  if (entity.notes === undefined) {
+    console.log(`Adding notes array to entity: ${entity.id}`);
+    entity.notes = [];
+  }
+
+  if (!Array.isArray(entity.notes)) {
+    console.warn(`Entity ${entity.id}: notes field is not an array, resetting to empty array`);
+    entity.notes = [];
+  }
+
+  return entity as Entity;
+}
+
 export async function saveEntity(fileName: string, data: Entity): Promise<{ success: boolean }> {
+  const saveData = { ...data };
+  if (saveData.notes === undefined) {
+    saveData.notes = [];
+  }
+
   if (isElectron()) {
-    return await (window as any).electronAPI.writeEntityFile(fileName, data);
+    return await (window as any).electronAPI.writeEntityFile(fileName, saveData);
   } else if (isCapacitor()) {
     const path = `entities/${fileName}`;
     await Filesystem.mkdir({
@@ -45,7 +65,7 @@ export async function saveEntity(fileName: string, data: Entity): Promise<{ succ
     });
     await Filesystem.writeFile({
       path: path,
-      data: JSON.stringify(data, null, 2),
+      data: JSON.stringify(saveData, null, 2),
       directory: Directory.Data,
     });
     return { success: true };
@@ -54,7 +74,7 @@ export async function saveEntity(fileName: string, data: Entity): Promise<{ succ
     return new Promise((resolve, reject) => {
       const transaction = database.transaction(['entities'], 'readwrite');
       const store = transaction.objectStore('entities');
-      const request = store.put({ fileName, data });
+      const request = store.put({ fileName, data: saveData });
 
       request.onsuccess = () => resolve({ success: true });
       request.onerror = () => reject(request.error);
@@ -64,7 +84,8 @@ export async function saveEntity(fileName: string, data: Entity): Promise<{ succ
 
 export async function loadEntity(fileName: string): Promise<Entity | null> {
   if (isElectron()) {
-    return await (window as any).electronAPI.readEntityFile(fileName);
+    const entity = await (window as any).electronAPI.readEntityFile(fileName);
+    return ensureNotesField(entity);
   } else if (isCapacitor()) {
     try {
       const path = `entities/${fileName}`;
@@ -78,7 +99,8 @@ export async function loadEntity(fileName: string): Promise<Entity | null> {
       } else {
         jsonString = await result.data.text();
       }
-      return JSON.parse(jsonString) as Entity;
+      const entity = JSON.parse(jsonString) as Entity;
+      return ensureNotesField(entity);
     } catch {
       return null;
     }
@@ -91,7 +113,8 @@ export async function loadEntity(fileName: string): Promise<Entity | null> {
 
       request.onsuccess = () => {
         const result = request.result;
-        resolve(result?.data || null);
+        const entity = result?.data || null;
+        resolve(ensureNotesField(entity));
       };
       request.onerror = () => reject(request.error);
     });
@@ -230,7 +253,6 @@ export async function importData(): Promise<any> {
         let jsonString = '';
 
         if (file.data) {
-          // Пробуем декодировать base64
           try {
             jsonString = decodeURIComponent(escape(atob(file.data)));
           } catch {
@@ -246,6 +268,10 @@ export async function importData(): Promise<any> {
 
         if (jsonString) {
           const data = JSON.parse(jsonString);
+
+          if (data && data.notes === undefined) {
+            data.notes = [];
+          }
 
           if (Array.isArray(data)) {
             return data;
@@ -273,6 +299,10 @@ export async function importData(): Promise<any> {
           reader.onload = (e) => {
             try {
               const data = JSON.parse(e.target?.result as string);
+
+              if (data && data.notes === undefined) {
+                data.notes = [];
+              }
 
               if (Array.isArray(data)) {
                 resolve(data);

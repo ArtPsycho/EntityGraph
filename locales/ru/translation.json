@@ -254,6 +254,21 @@
             "noLimitLabel": "Без ограничений по времени"
           }
         }
+      },
+      "notes": {
+        "title": "Заметки",
+        "createNoteButtonText": "+ Новая заметка",
+        "newNoteTitle": "Новая заметка",
+        "newNoteContent": "Текст заметки",
+        "noNotes": "Заметок пока нет",
+        "content": {
+          "titleInputPlaceholder": "Введите имя заметки",
+          "createdLabel": "Создано",
+          "updatedLabel": "Обновлено",
+          "deleteButtonText": "Удалить",
+          "submitButtonText": "Сохранить"
+
+        }
       }
     },
     "popup": {
@@ -295,6 +310,14 @@
       },
       "deleteSubbranch": {
         "itemType": "подветвь",
+        "title": "Удалить",
+        "message": "Вы уверены, что хотите удалить",
+        "warning": "Это действие невозможно будет отменить.",
+        "cancelButtonText": "Отменить",
+        "submitButtonText": "Удалить"
+      },
+      "deleteNote": {
+        "itemType": "заметку",
         "title": "Удалить",
         "message": "Вы уверены, что хотите удалить",
         "warning": "Это действие невозможно будет отменить.",

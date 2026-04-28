@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import { saveEntity, loadEntity, deleteEntity, listEntities } from './storage';
-import type { Entity, Branch, Point, SubBranch, EntityListItem } from '../types/entity';
+import type {Entity, Branch, Point, SubBranch, EntityListItem, Note} from '../types/entity';
 
 export async function createEntity(name: string): Promise<Entity> {
   const id = nanoid();
@@ -12,6 +12,7 @@ export async function createEntity(name: string): Promise<Entity> {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     branches: [],
+    notes: [],
   };
 
   await saveEntity(fileName, entity);
@@ -382,9 +383,77 @@ export async function importEntity(importedData: Entity): Promise<Entity> {
           id: nanoid()
         }))
       }))
-    }))
+    })),
+    notes: importedData.notes || [],
   };
 
   await saveEntity(newFileName, entityToImport);
   return entityToImport;
+}
+
+export async function addNote(
+  entity: Entity,
+  title: string,
+  content: string
+): Promise<Entity> {
+  const newNote: Note = {
+    id: nanoid(),
+    title,
+    content,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+
+  const updatedEntity = {
+    ...entity,
+    notes: [...entity.notes, newNote],
+    updatedAt: new Date().toISOString()
+  };
+
+  return await updateEntity(updatedEntity);
+}
+
+export async function updateNote(
+  entity: Entity,
+  noteId: string,
+  updates: Partial<Omit<Note, 'id' | 'createdAt'>>
+): Promise<Entity> {
+  const updatedEntity = {
+    ...entity,
+    notes: entity.notes.map(note =>
+      note.id === noteId
+        ? {
+          ...note,
+          ...updates,
+          updatedAt: new Date().toISOString()
+        }
+        : note
+    ),
+    updatedAt: new Date().toISOString()
+  };
+
+  return await updateEntity(updatedEntity);
+}
+
+export async function deleteNote(
+  entity: Entity,
+  noteId: string
+): Promise<Entity> {
+  const updatedEntity = {
+    ...entity,
+    notes: entity.notes.filter(note => note.id !== noteId),
+    updatedAt: new Date().toISOString()
+  };
+
+  return await updateEntity(updatedEntity);
+}
+
+export function getNoteById(entity: Entity, noteId: string): Note | undefined {
+  return entity.notes.find(note => note.id === noteId);
+}
+
+export function getNotesSortedByDate(entity: Entity): Note[] {
+  return [...entity.notes].sort((a, b) =>
+    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
 }

@@ -4,12 +4,12 @@ import styles from './entity-content.module.css';
 import {exportData, loadEntity} from '../../../services/storage';
 import {Entity, EntityListItem, Point, SubBranch} from '../../../types/entity';
 import {
-  addBranch,
+  addBranch, addNote,
   addPointToBranch, addSubBranchToPoint,
-  deleteBranch,
+  deleteBranch, deleteNote,
   deletePoint, deleteSubBranchFromPoint, getAllEntities, getEntity, removeEntity, reorderBranches, reorderPoints,
   reorderSubBranches,
-  updateBranch, updateEntity, updateEntityName,
+  updateBranch, updateEntity, updateEntityName, updateNote,
   updatePoint, updateSubBranchInPoint
 } from "../../../services/entityManager";
 import EntityCreateBranchPopup from "./popup/entity-create-branch-popup/entity-create-branch-popup";
@@ -39,6 +39,8 @@ import {DefaultRightArrowIcon} from "../../../assets/images/icons/right-arrow_ic
 import {DefaultArrowUpwardIcon} from "../../../assets/images/icons/arrow-upward_icon";
 import {DefaultArrowDownwardIcon} from "../../../assets/images/icons/arrow-downward_icon";
 import EntityGraphModal from "./modal/entity-graph-modal/entity-graph-modal";
+import {DefaultMenuIcon} from "../../../assets/images/icons/menu_icon";
+import NotePreview from "./modal/note/note-preview/note-preview";
 
 const EntityContent = () => {
   const { fileName } = useParams<{ fileName: string }>();
@@ -82,6 +84,12 @@ const EntityContent = () => {
   const [isDeleteEntityPopupOpen, setIsDeleteEntityPopupOpen] = useState<boolean>(false);
 
   const [isGraphModalOpen, setIsGraphModalOpen] = useState<boolean>(false);
+
+  const [isLeftSidebarCollapsed, setIsLeftSidebarCollapsed] = useState<boolean>(false);
+  const [isRightSidebarCollapsed, setIsRightSidebarCollapsed] = useState<boolean>(false);
+
+  const [isNotePreviewModalOpen, setIsNotePreviewModalOpen] = useState<boolean>(false);
+  const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
 
   const navigate = useNavigate();
   const { currentTheme } = useTheme();
@@ -395,7 +403,6 @@ const EntityContent = () => {
     const date = new Date(dateString);
     const now = new Date();
 
-    // Обнуляем время для корректного сравнения дат
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const taskDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
@@ -471,157 +478,202 @@ const EntityContent = () => {
     }
   };
 
+  const handleCreateNote = async (title: string, content: string) => {
+    if (fileData) {
+      const updatedEntity = await addNote(fileData, title, content);
+      setFileData(updatedEntity);
+    }
+  };
+
+  const handleUpdateNote = async (noteId: string, title: string, content: string) => {
+    if (fileData) {
+      const updatedEntity = await updateNote(fileData, noteId, { title, content });
+      setFileData(updatedEntity);
+    }
+  };
+
+  const handleDeleteNote = async (noteId: string) => {
+    if (fileData) {
+      const updatedEntity = await deleteNote(fileData, noteId);
+      setFileData(updatedEntity);
+      if (activeNoteId === noteId) {
+        setIsNotePreviewModalOpen(false);
+        setActiveNoteId(null);
+      }
+    }
+  };
+
 
   return (
     <div className={styles.content}>
 
-      <div className={styles.infoBar}>
-        <button
-          onClick={() => navigate('/home')}
-          className={styles.homeButton}
-        >
-          <DefaultArrowBackIcon width="20px" height="20px" color="#fff" />
-          {t('entityPage.content.infoBar.goBackButtonText')}
-        </button>
+      <div className={`${styles.infoBar} ${isLeftSidebarCollapsed ? styles.collapsed : ''}`}>
 
-        {activeEntityEdit ? (
-          <div className={styles.entityEditBox}>
-            <div className={styles.entityEditBoxConfirmation}>
-              <button
-                className={styles.cancelEntityEditButton}
-                title={t('entityPage.content.infoBar.editEntity.cancelButtonTitle')}
-                onClick={() => {
-                  setActiveEntityEdit(false);
-                  setEntityName('');
-                }}
-              >
-                <DefaultCloseIcon width="24px" height="24px" color="#fff" />
-              </button>
-              <button
-                className={styles.confirmEntityEditButton}
-                title={t('entityPage.content.infoBar.editEntity.submitButtonTitle')}
-                onClick={async () => {
-                  if (fileData) {
-                    const updatedEntity = await updateEntityName(fileData, entityName);
-                    setFileData(updatedEntity);
-                    setActiveEntityEdit(false);
-                    setEntityName('');
-                  }
-                }}
-              >
-                <DefaultSuccessIcon width="24px" height="24px" color="#fff" />
-              </button>
-            </div>
-
-            <div className={styles.entityEditInputBox}>
-              <label className={styles.entityEditInputBoxLabel}>{t('entityPage.content.infoBar.editEntity.inputNameLabel')}</label>
-              <textarea
-                className={styles.entityEditInput}
-                placeholder={t('entityPage.content.infoBar.editEntity.inputNamePlaceholder')}
-                value={entityName}
-                onChange={(e) => setEntityName(e.target.value)}
-              />
-            </div>
-          </div>
+        <div className={`${styles.infoBarInteractions} ${isLeftSidebarCollapsed ? styles.collapsed : ''}`}>
+          {isLeftSidebarCollapsed ? (
+            <></>
           ) : (
+            <button
+              onClick={() => navigate('/home')}
+              className={styles.homeButton}
+            >
+              <DefaultArrowBackIcon width="20px" height="20px" color="#fff" />
+              {t('entityPage.content.infoBar.goBackButtonText')}
+            </button>
+          )}
+
+          <button
+            className={styles.collapseSidebarButton}
+            onClick={() => setIsLeftSidebarCollapsed(!isLeftSidebarCollapsed)}
+          >
+            <DefaultMenuIcon width="24px" height="24px" />
+          </button>
+        </div>
+
+        {isLeftSidebarCollapsed ? (
+          <></>
+        ) : (
           <>
-            <div className={styles.entityHeader}>
-              <h2 className={styles.infoBarTitle}>{fileData.name}</h2>
-              <button
-                className={styles.editPointButton}
-                onClick={() => {
-                  setEntityName(fileData.name)
-                  setActiveEntityEdit(true)
-                }}
-              >
-                <DefaultEditPencilIcon width="20px" height="20px" color="#fff" />
-              </button>
+            {activeEntityEdit ? (
+              <div className={styles.entityEditBox}>
+                <div className={styles.entityEditBoxConfirmation}>
+                  <button
+                    className={styles.cancelEntityEditButton}
+                    title={t('entityPage.content.infoBar.editEntity.cancelButtonTitle')}
+                    onClick={() => {
+                      setActiveEntityEdit(false);
+                      setEntityName('');
+                    }}
+                  >
+                    <DefaultCloseIcon width="24px" height="24px" color="#fff" />
+                  </button>
+                  <button
+                    className={styles.confirmEntityEditButton}
+                    title={t('entityPage.content.infoBar.editEntity.submitButtonTitle')}
+                    onClick={async () => {
+                      if (fileData) {
+                        const updatedEntity = await updateEntityName(fileData, entityName);
+                        setFileData(updatedEntity);
+                        setActiveEntityEdit(false);
+                        setEntityName('');
+                      }
+                    }}
+                  >
+                    <DefaultSuccessIcon width="24px" height="24px" color="#fff" />
+                  </button>
+                </div>
+
+                <div className={styles.entityEditInputBox}>
+                  <label className={styles.entityEditInputBoxLabel}>{t('entityPage.content.infoBar.editEntity.inputNameLabel')}</label>
+                  <textarea
+                    className={styles.entityEditInput}
+                    placeholder={t('entityPage.content.infoBar.editEntity.inputNamePlaceholder')}
+                    value={entityName}
+                    onChange={(e) => setEntityName(e.target.value)}
+                  />
+                </div>
+              </div>
+              ) : (
+              <>
+                <div className={styles.entityHeader}>
+                  <h2 className={styles.infoBarTitle}>{fileData.name}</h2>
+                  <button
+                    className={styles.editPointButton}
+                    onClick={() => {
+                      setEntityName(fileData.name)
+                      setActiveEntityEdit(true)
+                    }}
+                  >
+                    <DefaultEditPencilIcon width="20px" height="20px" color="#fff" />
+                  </button>
+                </div>
+
+                <div className={styles.infoBarMeta}>
+                  <p>{t('entityPage.content.infoBar.entityHeader.createdLabel')}: {new Date(fileData.createdAt).toLocaleString()}</p>
+                  <p>{t('entityPage.content.infoBar.entityHeader.updatedLabel')}: {new Date(fileData.updatedAt).toLocaleString()}</p>
+                  <p>{t('entityPage.content.infoBar.entityHeader.branchesLabel')}: {fileData.branches.length}</p>
+                </div>
+              </>
+            )}
+
+            <div className={styles.infoBarTasks}>
+              <h3 className={styles.infoBarContentTitle}>{t('entityPage.content.infoBar.tasks.title')}</h3>
+              <div className={styles.infoBarTasksList}>
+                {(() => {
+                  const nearestTasks = getNearestTasks();
+                  if (nearestTasks.length === 0) {
+                    return <div className={styles.noTasks}>{t('entityPage.content.infoBar.tasks.noTasks')}</div>;
+                  }
+                  return (
+                    <div className={styles.tasksList}>
+                      {nearestTasks.map(task => (
+                        <div key={`${task.type}-${task.id}`} className={styles.taskItem}>
+                          {/*<div className={styles.taskHeader}>*/}
+                            <div className={styles.taskTitle}>
+                              {/*<span className={`${styles.taskStatusDot} ${getTaskStatusClass(task.status)}`} />*/}
+                              <span className={styles.taskTypeIcon}>
+                                {getTaskTypeIcon(task.type)}
+                              </span>
+                              <span className={styles.taskName}>{task.name}</span>
+                            </div>
+                            <span className={styles.taskDate}>
+                              {formatTaskDate(task.toDoUntil)}
+                            </span>
+                          {/*</div>*/}
+
+                          {/*<div className={styles.taskLocation}>*/}
+                          {/*  <span className={styles.locationIcon}>📁</span>*/}
+                          {/*  <span className={styles.locationText}>{task.branchName}</span>*/}
+                          {/*  {task.type === 'subbranch' && task.pointName && (*/}
+                          {/*    <>*/}
+                          {/*      <span className={styles.separator}>›</span>*/}
+                          {/*      <span className={styles.locationIcon}>📍</span>*/}
+                          {/*      <span className={styles.locationText}>{task.pointName}</span>*/}
+                          {/*    </>*/}
+                          {/*  )}*/}
+                          {/*</div>*/}
+
+                          {/*{task.description && (*/}
+                          {/*  <p className={styles.taskDescription}>*/}
+                          {/*    {task.description.length > 60*/}
+                          {/*      ? `${task.description.substring(0, 60)}...`*/}
+                          {/*      : task.description}*/}
+                          {/*  </p>*/}
+                          {/*)}*/}
+
+                          <div className={styles.taskDeadline}>
+                            {/*<span className={styles.deadlineIcon}>⏰</span>*/}
+                            {/*<span className={styles.deadlineText}>*/}
+                              {new Date(task.toDoUntil).toLocaleString()}
+                            {/*</span>*/}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })()}
+              </div>
             </div>
 
-            <div className={styles.infoBarMeta}>
-              <p>{t('entityPage.content.infoBar.entityHeader.createdLabel')}: {new Date(fileData.createdAt).toLocaleString()}</p>
-              <p>{t('entityPage.content.infoBar.entityHeader.updatedLabel')}: {new Date(fileData.updatedAt).toLocaleString()}</p>
-              <p>{t('entityPage.content.infoBar.entityHeader.branchesLabel')}: {fileData.branches.length}</p>
+            <div className={styles.infoBarContent}>
+              <h3 className={styles.infoBarContentTitle}>{t('entityPage.content.infoBar.progress.title')}</h3>
+              <div className={styles.infoBarContentBranchList}>
+                {fileData.branches.map((branch) => (
+                  <div key={branch.id} className={styles.infoBarContentBranch}>
+                    <div className={styles.infoBarContentBranchInfo}>
+                      <h4 className={styles.infoBarContentBranchName}>{branch.name}</h4>
+                      <CircularProgress
+                        percent={calculateBranchPercent(branch.points)}
+                        size={48}
+                        strokeWidth={4}
+                      ></CircularProgress>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </>
         )}
-
-        <div className={styles.infoBarTasks}>
-          <h3 className={styles.infoBarContentTitle}>{t('entityPage.content.infoBar.tasks.title')}</h3>
-          <div className={styles.infoBarTasksList}>
-            {(() => {
-              const nearestTasks = getNearestTasks();
-              if (nearestTasks.length === 0) {
-                return <div className={styles.noTasks}>{t('entityPage.content.infoBar.tasks.noTasks')}</div>;
-              }
-              return (
-                <div className={styles.tasksList}>
-                  {nearestTasks.map(task => (
-                    <div key={`${task.type}-${task.id}`} className={styles.taskItem}>
-                      {/*<div className={styles.taskHeader}>*/}
-                        <div className={styles.taskTitle}>
-                          {/*<span className={`${styles.taskStatusDot} ${getTaskStatusClass(task.status)}`} />*/}
-                          <span className={styles.taskTypeIcon}>
-                            {getTaskTypeIcon(task.type)}
-                          </span>
-                          <span className={styles.taskName}>{task.name}</span>
-                        </div>
-                        <span className={styles.taskDate}>
-                          {formatTaskDate(task.toDoUntil)}
-                        </span>
-                      {/*</div>*/}
-
-                      {/*<div className={styles.taskLocation}>*/}
-                      {/*  <span className={styles.locationIcon}>📁</span>*/}
-                      {/*  <span className={styles.locationText}>{task.branchName}</span>*/}
-                      {/*  {task.type === 'subbranch' && task.pointName && (*/}
-                      {/*    <>*/}
-                      {/*      <span className={styles.separator}>›</span>*/}
-                      {/*      <span className={styles.locationIcon}>📍</span>*/}
-                      {/*      <span className={styles.locationText}>{task.pointName}</span>*/}
-                      {/*    </>*/}
-                      {/*  )}*/}
-                      {/*</div>*/}
-
-                      {/*{task.description && (*/}
-                      {/*  <p className={styles.taskDescription}>*/}
-                      {/*    {task.description.length > 60*/}
-                      {/*      ? `${task.description.substring(0, 60)}...`*/}
-                      {/*      : task.description}*/}
-                      {/*  </p>*/}
-                      {/*)}*/}
-
-                      <div className={styles.taskDeadline}>
-                        {/*<span className={styles.deadlineIcon}>⏰</span>*/}
-                        {/*<span className={styles.deadlineText}>*/}
-                          {new Date(task.toDoUntil).toLocaleString()}
-                        {/*</span>*/}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              );
-            })()}
-          </div>
-        </div>
-
-        <div className={styles.infoBarContent}>
-          <h3 className={styles.infoBarContentTitle}>{t('entityPage.content.infoBar.progress.title')}</h3>
-          <div className={styles.infoBarContentBranchList}>
-            {fileData.branches.map((branch) => (
-              <div key={branch.id} className={styles.infoBarContentBranch}>
-                <div className={styles.infoBarContentBranchInfo}>
-                  <h4 className={styles.infoBarContentBranchName}>{branch.name}</h4>
-                  <CircularProgress
-                    percent={calculateBranchPercent(branch.points)}
-                    size={48}
-                    strokeWidth={4}
-                  ></CircularProgress>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
 
       </div>
 
@@ -1264,6 +1316,88 @@ const EntityContent = () => {
         </div>
       </div>
 
+      <div className={`${styles.rightSidebar} ${isRightSidebarCollapsed ? styles.collapsed : ''}`}>
+        <div className={`${styles.rightSidebarHeader} ${isRightSidebarCollapsed ? styles.collapsed : ''}`}>
+          <button
+            className={styles.collapseSidebarButton}
+            onClick={() => setIsRightSidebarCollapsed(!isRightSidebarCollapsed)}
+          >
+            <DefaultMenuIcon width="24px" height="24px" />
+          </button>
+        </div>
+
+        {isRightSidebarCollapsed ? (
+          <></>
+        ) : (
+          <>
+            <div className={styles.rightSidebarSection}>
+              <div className={styles.rightSidebarSectionHeader}>
+                <h3 className={styles.rightSidebarSectionTitle}>{t('entityPage.content.notes.title')}</h3>
+                <button
+                  className={styles.newNoteButton}
+                  onClick={() => handleCreateNote(`${t('entityPage.content.notes.newNoteTitle')}`, `${t('entityPage.content.notes.newNoteContent')}`)}
+                >
+                  {t('entityPage.content.notes.createNoteButtonText')}
+                </button>
+              </div>
+
+              {fileData.notes.length === 0 ? (
+                <div className={styles.emptyNotes}>
+                  <p className={styles.noNotes}>{t('entityPage.content.notes.noNotes')}</p>
+                  <button
+                    className={styles.newNoteButton}
+                    onClick={() => handleCreateNote(`${t('entityPage.content.notes.newNoteTitle')}`, `${t('entityPage.content.notes.newNoteContent')}`)}
+                  >
+                    {t('entityPage.content.notes.createNoteButtonText')}
+                  </button>
+                </div>
+              ) : (
+                <div className={styles.notesList}>
+                  {fileData.notes.map((note, index) => (
+                    <div key={note.id}>
+                      <div
+                        className={styles.notePreview}
+                        onClick={() => {
+                          setIsNotePreviewModalOpen(true)
+                          setActiveNoteId(note.id)
+                        }}
+                      >
+                        <h4 className={styles.noteTitle}>{note.title}</h4>
+                        <div className={styles.noteContent}>
+                          <MarkdownRenderer
+                            content={note.content}
+                          />
+                        </div>
+                      </div>
+                      {activeNoteId === note.id && (
+                        <NotePreview
+                          active={isNotePreviewModalOpen}
+                          onClose={() => {
+                            setIsNotePreviewModalOpen(false)
+                            setActiveNoteId(null)
+                          }}
+                          title={note.title}
+                          content={note.content}
+                          updatedAt={note.updatedAt}
+                          createdAt={note.createdAt}
+                          onUpdate={(title, content) =>
+                            handleUpdateNote(note.id, title, content)
+                          }
+                          onDelete={() => handleDeleteNote(note.id)}
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </>
+        )}
+
+
+
+      </div>
+
       <EntityCreateBranchPopup
         active={isCreateBranchPopupOpen}
         onClose={() => setIsCreateBranchPopupOpen(false)}
@@ -1338,6 +1472,7 @@ const EntityContent = () => {
           fileData={fileData}
         />
       )}
+
 
     </div>
   );

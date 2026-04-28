@@ -132,7 +132,7 @@
 }
 
 :root.dark {
-  /* BACKGROUND - на основе ваших цветов */
+  /* BACKGROUND */
   --color-background: #1E1F22;
   --color-background-modal: #252629;
   --color-background-popup: #252629;

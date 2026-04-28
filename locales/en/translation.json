@@ -254,6 +254,21 @@
             "noLimitLabel": "No time limit"
           }
         }
+      },
+      "notes": {
+        "title": "Notes",
+        "createNoteButtonText": "+ New Note",
+        "newNoteTitle": "New Note",
+        "newNoteContent": "Note text",
+        "noNotes": "No notes yet",
+        "content": {
+          "titleInputPlaceholder": "Enter note title",
+          "createdLabel": "Created",
+          "updatedLabel": "Updated",
+          "deleteButtonText": "Delete",
+          "submitButtonText": "Save note"
+
+        }
       }
     },
     "popup": {
@@ -295,6 +310,14 @@
       },
       "deleteSubbranch": {
         "itemType": "subbranch",
+        "title": "Delete",
+        "message": "Are you sure you want to delete",
+        "warning": "This action cannot be undone.",
+        "cancelButtonText": "Cancel",
+        "submitButtonText": "Delete"
+      },
+      "deleteNote": {
+        "itemType": "note",
         "title": "Delete",
         "message": "Are you sure you want to delete",
         "warning": "This action cannot be undone.",

@@ -43,6 +43,42 @@
   z-index: 300;
 }
 
+.infoBar.collapsed {
+  width: 50px;
+  transition: ease-in-out 0.4s;
+}
+
+.infoBarInteractions {
+  width: 100%;
+  padding: 20px 20px 0 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.infoBarInteractions.collapsed {
+  padding: 20px 0 0 0;
+  justify-content: center;
+}
+
+.collapseSidebarButton {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  display: flex;
+  background-color: var(--color-button-ghost);
+  box-shadow: none;
+}
+
+.collapseSidebarButton:hover {
+  background-color: var(--color-button-ghost-hover);
+  box-shadow: none;
+}
+
+.collapseSidebarButton:hover path {
+  fill: var(--color-text-accent);
+}
+
 .entityEditBox {
   width: 100%;
   padding: 20px;
@@ -279,7 +315,6 @@
 }
 
 .homeButton {
-  margin: 20px 20px 0 20px;
   width: fit-content;
   padding: 10px;
   display: flex;
@@ -1347,3 +1382,154 @@
 }
 
 
+.rightSidebar {
+  width: 340px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-left: 1px solid var(--color-border);
+  background-color: var(--color-background-modal);
+  overflow-y: hidden;
+  flex-shrink: 0;
+  z-index: 300;
+}
+
+.rightSidebar.collapsed {
+  width: 50px;
+  transition: width 0.4s ease-in-out;
+}
+
+.rightSidebarHeader {
+  width: 100%;
+  display: flex;
+  padding: 20px 20px 0 20px;
+}
+
+.rightSidebarHeader.collapsed {
+  padding: 20px 0 0 0;
+  justify-content: center;
+}
+
+.rightSidebarSection {
+  min-height: 0;
+  padding: 0 10px 0 20px;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.rightSidebarSectionHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rightSidebarSectionTitle {
+  font-size: 20px;
+}
+
+.emptyNotes {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.noNotes {
+  padding: 10px 0;
+  font-weight: 300;
+}
+
+.newNoteButton {
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.newNoteButton:hover {
+  color: var(--color-text-accent-hover);
+  box-shadow: none;
+}
+
+.notesList {
+  padding-right: 10px;
+  padding-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+.notesList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.notesList::-webkit-scrollbar-track {
+  margin-bottom: 10px;
+  background: var(--color-scrollbar-track);
+}
+
+.notesList::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar-thumb);
+}
+
+.notesList::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-thumb-hover);
+}
+
+.notePreview {
+  width: 100%;
+  max-height: 300px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid var(--color-border);
+  border-left: 2px solid var(--color-border-accent);
+  background-color: var(--color-background-accent-light);
+  box-shadow: var(--box-shadow-sm-primary);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.notePreview:hover {
+  box-shadow: var(--box-shadow-md-primary);
+  border: 1px solid var(--color-border-light-grey);
+  border-left: 2px solid var(--color-border-accent);
+}
+
+.noteTitle {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.noteContent {
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.noteContent h1,
+.noteContent h2,
+.noteContent h3,
+.noteContent h4,
+.noteContent h5,
+.noteContent h6 {
+  font-size: 16px;
+  margin: 6px 0;
+}
+
+.noteContent p,
+.noteContent ul,
+.noteContent ol,
+.noteContent blockquote {
+  font-size: 14px;
+  margin: 2px 0;
+}
