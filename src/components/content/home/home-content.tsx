@@ -11,7 +11,6 @@ import {DefaultQuestionMarkIcon} from "../../../assets/images/icons/question-mar
 import HomeInfoPopup from "./popup/home-info-popup/home-info-popup";
 import {DefaultUploadFileIcon} from "../../../assets/images/icons/upload-file_icon";
 import HomeDeleteEntityPopup from "./popup/home-delete-entity-popup/home-delete-entity-popup";
-import Cookies from "js-cookie";
 import {DefaultSettingsThemeLightIcon} from "../../../assets/images/icons/settings-theme-light_icon";
 import {DefaultSettingsThemeDarkIcon} from "../../../assets/images/icons/settings-theme-dark_icon";
 import {useTheme} from "../../../hooks/useTheme";
@@ -42,6 +41,14 @@ const HomeContent = () => {
     }
   }, [i18n.language]);
 
+  const getLocalStorage = (key: string, defaultValue: any = null) => {
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : defaultValue;
+  };
+
+  const setLocalStorage = (key: string, value: any) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  };
 
   const loadEntities = useCallback(async (): Promise<void> => {
     // setLoading(true);
@@ -122,7 +129,7 @@ const HomeContent = () => {
   const { currentTheme, setTheme, getTheme } = useTheme();
 
   const handleThemeChange = () => {
-    const theme = Cookies.get('theme');
+    const theme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
     if (theme) {
@@ -145,7 +152,7 @@ const HomeContent = () => {
   }
 
   const ThemeSwitcherIcon = () => {
-    const theme = Cookies.get('theme');
+    const theme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
     if (theme) {
@@ -173,13 +180,13 @@ const HomeContent = () => {
   //     </div>);
   // }
 
-  const [activeLanguage, setActiveLanguage] = useState(Cookies.get('language') || 'en');
+  const [activeLanguage, setActiveLanguage] = useState(localStorage.getItem('language') || 'en');
   const [isLanguagePopupOpen, setIsLanguagePopupOpen] = useState(false);
   const languageSwitcherRef = useRef<HTMLDivElement>(null);
 
   // Переключение языка
   useEffect(() => {
-    const language = Cookies.get('lang') || 'ru';
+    const language = localStorage.getItem('language') || 'ru';
     setActiveLanguage(language);
     i18n.changeLanguage(language);
   }, []);
@@ -203,7 +210,7 @@ const HomeContent = () => {
   const handleLanguageChange = (lang: string) => {
     i18n.changeLanguage(lang);
     setActiveLanguage(lang);
-    Cookies.set('lang', lang, { expires: 365 });
+    localStorage.setItem('language', lang);
     setIsLanguagePopupOpen(false);
   };
 
@@ -216,12 +223,12 @@ const HomeContent = () => {
   const [showTutorialPopup, setShowTutorialPopup] = useState(false);
 
   const handleSkipTutorial = () => {
-    Cookies.set('tutorialCompleted', 'true', { expires: 365 });
+    localStorage.setItem('tutorialCompleted', 'true');
     setShowTutorialPopup(false);
   };
 
   useEffect(() => {
-    const tutorialCompleted = Cookies.get('tutorialCompleted');
+    const tutorialCompleted = localStorage.getItem('tutorialCompleted');
     if (!tutorialCompleted) {
       setShowTutorialPopup(true);
     }

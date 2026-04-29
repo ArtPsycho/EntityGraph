@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
 
 export const useTheme = () => {
-  const [currentTheme, setCurrentTheme] = useState(Cookies.get('theme') || 'system');
+  const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('theme') || 'system');
 
   const applyTheme = (theme: string) => {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
@@ -29,16 +28,16 @@ export const useTheme = () => {
   };
 
   const setTheme = (theme: string) => {
-    Cookies.set('theme', theme, { expires: 365 });
+    localStorage.setItem('theme', theme);
     applyTheme(theme);
     setCurrentTheme(theme);
   };
 
   const getTheme = () => {
-    let theme = Cookies.get('theme');
+    let theme = localStorage.getItem('theme');
     if (!theme) {
       theme = 'system';
-      Cookies.set('theme', theme, { expires: 365 });
+      localStorage.setItem('theme', theme);
     }
     applyTheme(theme);
     setCurrentTheme(theme);
@@ -50,7 +49,7 @@ export const useTheme = () => {
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => {
-      const theme = Cookies.get('theme');
+      const theme = localStorage.getItem('theme');
       if (theme === 'system') {
         applyTheme('system');
       }

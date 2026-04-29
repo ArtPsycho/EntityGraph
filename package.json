@@ -1,12 +1,40 @@
 {
   "name": "entitygraph",
-  "version": "1.0.0",
+  "version": "1.4.1",
   "description": "",
-  "type": "module",
+  "main": "electron/main.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && cp -r locales dist/locales",
-    "preview": "vite preview"
+    "build": "vite build && shx cp -r locales dist/locales",
+    "preview": "vite preview",
+    "electron:dev": "npm run build && cross-env NODE_ENV=development electron .",
+    "electron:build:portable": "cross-env ELECTRON_BUILDER_ALLOW_SYMLINKS=false npm run build && electron-builder --win portable",
+    "electron:clean": "shx rm -rf release dist"
+  },
+  "build": {
+    "appId": "com.entitygraph.app",
+    "productName": "Entity Graph",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "locales/**/*",
+      "build/icon.ico"
+    ],
+    "win": {
+      "target": "portable",
+      "signAndEditExecutable": false,
+      "icon": "build/icon.ico"
+    },
+    "portable": {
+      "artifactName": "Entity Graph.exe"
+    },
+    "npmRebuild": false,
+    "nodeGypRebuild": false,
+    "asar": false
   },
   "dependencies": {
     "@capacitor/filesystem": "^8.1.2",
@@ -15,7 +43,6 @@
     "@use-gesture/react": "^10.3.1",
     "i18next": "^26.0.6",
     "i18next-http-backend": "^3.0.5",
-    "js-cookie": "^3.0.5",
     "nanoid": "^5.1.7",
     "react": "^19.1.1",
     "react-d3-tree": "^3.6.6",
@@ -27,13 +54,16 @@
     "react-use-gesture": "^9.1.3"
   },
   "devDependencies": {
-    "@types/js-cookie": "^3.0.6",
     "@types/node": "^25.6.0",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
     "@types/react-syntax-highlighter": "^15.5.13",
     "@vitejs/plugin-react": "^4.7.0",
+    "cross-env": "^10.1.0",
+    "electron": "^41.3.0",
+    "electron-builder": "^26.8.1",
     "sass": "^1.91.0",
+    "shx": "^0.4.0",
     "typescript": "^5.9.2",
     "vite": "^6.4.2",
     "vite-plugin-svgr": "^5.0.0"

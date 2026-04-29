@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Cookies from 'js-cookie';
 
 export const useLanguage = () => {
-  const { i18n } = useTranslation();
-  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
+  const { i18n, t } = useTranslation();
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language || 'ru');
+  const [isReady, setIsReady] = useState(false);
 
   const changeLanguage = async (lng: string) => {
+    if (!i18n.changeLanguage) {
+      console.error('i18n not ready yet');
+      return;
+    }
     try {
       await i18n.changeLanguage(lng);
-      Cookies.set('lang', lng, { expires: 365 });
+      localStorage.setItem('language', lng);
       setCurrentLanguage(lng);
     } catch (error) {
       console.error('Error changing language:', error);
@@ -19,29 +23,43 @@ export const useLanguage = () => {
   useEffect(() => {
     const initializeLanguage = async () => {
       try {
-        const language = Cookies.get('lang');
+        // Ждем готовности i18n
+        if (!i18n.isInitialized) {
+          await new Promise((resolve) => {
+            i18n.on('initialized', resolve);
+          });
+        }
+
+        const language = localStorage.getItem('language');
         const supportedLanguages = ['en', 'ru'];
 
         let langToSet = language;
 
         if (!langToSet || !supportedLanguages.includes(langToSet)) {
           const browserLanguage = navigator.language.split('-')[0];
-          langToSet = supportedLanguages.includes(browserLanguage) ? browserLanguage : 'en';
+          langToSet = supportedLanguages.includes(browserLanguage) ? browserLanguage : 'ru';
         }
 
-        await i18n.changeLanguage(langToSet);
-        Cookies.set('lang', langToSet, { expires: 365 });
-        setCurrentLanguage(langToSet);
-
+        if (i18n.changeLanguage) {
+          await i18n.changeLanguage(langToSet);
+          localStorage.setItem('language', langToSet);
+          setCurrentLanguage(langToSet);
+        }
+        setIsReady(true);
       } catch (error) {
         console.error('Error initializing language:', error);
+        setIsReady(true);
       }
     };
 
-    initializeLanguage();
+    if (i18n) {
+      initializeLanguage();
+    }
   }, [i18n]);
 
   useEffect(() => {
+    if (!i18n) return;
+
     const handleLanguageChanged = (lng: string) => {
       setCurrentLanguage(lng);
     };
@@ -56,6 +74,7 @@ export const useLanguage = () => {
   return {
     currentLanguage,
     changeLanguage,
-    supportedLanguages: ['en', 'ru']
+    supportedLanguages: ['en', 'ru'],
+    isReady
   };
 };

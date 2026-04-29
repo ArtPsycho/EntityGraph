@@ -10,61 +10,64 @@ interface TutorialStep {
   description: string;
 }
 
+const isElectron = !!(window as any).electronAPI?.isElectron;
+const basePath = isElectron ? '.' : '';
+
 const getTutorialSteps = (t: any): TutorialStep[] => [
   {
     id: 1,
     title: t('homePage.popup.tutorial.welcome.title'),
     mediaType: "image",
-    mediaSrc: "/tutorial/welcome.png",
+    mediaSrc: `${basePath}/tutorial/welcome.png`,
     description: t('homePage.popup.tutorial.welcome.message')
   },
   {
     id: 2,
     title: t('homePage.popup.tutorial.homePage.title'),
     mediaType: "image",
-    mediaSrc: "/tutorial/homePage.png",
+    mediaSrc: `${basePath}/tutorial/homePage.png`,
     description: t('homePage.popup.tutorial.homePage.message')
   },
   {
     id: 3,
     title: t('homePage.popup.tutorial.createEntity.title'),
     mediaType: "image",
-    mediaSrc: "/tutorial/createEntity.png",
+    mediaSrc: `${basePath}/tutorial/createEntity.png`,
     description: t('homePage.popup.tutorial.createEntity.message')
   },
   {
     id: 4,
     title: t('homePage.popup.tutorial.entityPage.title'),
     mediaType: "image",
-    mediaSrc: "/tutorial/entityPage.png",
+    mediaSrc: `${basePath}/tutorial/entityPage.png`,
     description: t('homePage.popup.tutorial.entityPage.message')
   },
   {
     id: 5,
     title: t('homePage.popup.tutorial.createBranch.title'),
     mediaType: "image",
-    mediaSrc: "/tutorial/createBranch.png",
+    mediaSrc: `${basePath}/tutorial/createBranch.png`,
     description: t('homePage.popup.tutorial.createBranch.message')
   },
   {
     id: 6,
     title: t('homePage.popup.tutorial.branch.title'),
     mediaType: "image",
-    mediaSrc: "/tutorial/branch.png",
+    mediaSrc: `${basePath}/tutorial/branch.png`,
     description: t('homePage.popup.tutorial.branch.message')
   },
   {
     id: 7,
     title: t('homePage.popup.tutorial.progress.title'),
     mediaType: "image",
-    mediaSrc: "/tutorial/progress.png",
+    mediaSrc: `${basePath}/tutorial/progress.png`,
     description: t('homePage.popup.tutorial.progress.message')
   },
   {
     id: 8,
     title: t('homePage.popup.tutorial.start.title'),
     mediaType: "image",
-    mediaSrc: "/tutorial/start.png",
+    mediaSrc: `${basePath}/tutorial/start.png`,
     description: t('homePage.popup.tutorial.start.message')
   }
 ];
